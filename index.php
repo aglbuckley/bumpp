@@ -85,28 +85,22 @@
 				<hr></hr>
 				<ul class="example-orbit" data-orbit> 
 					<li> 
-						<img src="images/satelite-orbit.jpg" alt="slide 1" /> 
+						<img src="images/london_sm.jpg" alt="slide 1" /> 
 						<div class="orbit-caption"> 
-							Caption One. 
+							London. 
 						</div> 
 					</li> 
 					<li> 
-						<img src="images/andromeda-orbit.jpg" alt="slide 2" /> 
+						<img src="images/lake_sm.jpg" alt="slide 2" /> 
 						<div class="orbit-caption"> 
-							Caption Two. 
+							Lake. 
 						</div> 
 					</li> 
 					<li> 
-						<img src="images/launch-orbit.jpg" alt="slide 3" /> 
+						<img src="images/mountain_sm.jpg" alt="slide 3" /> 
 						<div class="orbit-caption"> 
-							Caption Three. 
+							Mountain. 
 						</div> 
-					</li>
-					<li>
-						<img src="images/london1.jpg" alt="slide 4" />
-						<div class="orbit-caption">
-							Caption Four.
-						</div>
 					</li>
 				</ul>
 			</div>
