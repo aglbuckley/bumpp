@@ -80,6 +80,7 @@
 		 ?>
 		<section role="main">
 			<div class="row">
+				<div id="blogHeader">
 				<h1 id="blogHeader">
 				<?php
 					if(!isset($_SESSION['blog_name']) || $_SESSION['blog_name']==''){
@@ -118,6 +119,8 @@
 
 					
 				?></h1>
+				<small><a href="#">Rename Blog</a></small>
+				</div>
 				<h3 class="subheader"> It's really easy to customize your very own blog!</h3>
 				<hr></hr>
 				<ul class="example-orbit" data-orbit> 

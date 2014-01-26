@@ -1,3 +1,11 @@
+/* Custom CSS */
+
+#blogHeader {
+	display:inline;
+}
+
+/*End Custom CSS */
+
 meta.foundation-mq-small {
   font-family: "/only screen and (max-width: 40em)/";
   width: 0em; }
