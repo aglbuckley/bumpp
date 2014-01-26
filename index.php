@@ -80,7 +80,44 @@
 		 ?>
 		<section role="main">
 			<div class="row">
-				<h1 id="blogHeader"><?php echo $_SESSION['fname']."'s Blog"; ?></h1>
+				<h1 id="blogHeader">
+				<?php
+					if(!isset($_SESSION['blog_name']) || $_SESSION['blog_name']==''){
+						$blogName = "";					
+						$mysqli = new mysqli("eu-cdbr-azure-north-b.cloudapp.net", "b4076f65ff0228", "50c893e0", "bumppAdwhDiig5M6");
+
+						if ($mysqli->connect_errno) {
+							echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+						}
+
+						/* create a prepared statement */
+						if ($stmt = $mysqli->prepare("SELECT name FROM blog WHERE user_id=?")) {
+						
+							if(!$stmt->bind_param("s", $_SESSION['user_id']))
+							{
+								echo '<h1>Error on select bind</h1>';
+								exit();
+			
+							} else {
+								if($stmt->execute()){
+									$stmt->bind_result($blogName);
+			
+								} else {
+									echo '<h1>Error on execute</h1>';
+									exit();
+								}
+		
+								$stmt->fetch();
+				
+								$stmt->close();
+							}
+						}
+						$_SESSION['blog_name'] = stripslashes($blogName);
+					}
+					echo $_SESSION['blog_name'];
+
+					
+				?></h1>
 				<h3 class="subheader"> It's really easy to customize your very own blog!</h3>
 				<hr></hr>
 				<ul class="example-orbit" data-orbit> 

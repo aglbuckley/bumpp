@@ -4,6 +4,7 @@ $fname = "";
 $lname = "";
 $email = "";
 $password = "";
+$user_id=-1;
 
 //Eventually check to see if the user is already registered.
 
@@ -37,8 +38,44 @@ if(!$stmt->bind_param("sssss", $fname, $lname, $email, $hash, $salt))
 	echo "Binding failed: (".$stmt->errno.") ".$stmt->error;
 }
 
-if ($stmt->execute()) { 
-   echo '<h1>Success!</h1><br><form action="login.html">
+if ($stmt->execute()) {
+			
+	$stmt = $mysqli->prepare("SELECT user_id FROM user WHERE email = ? AND salt = ?");
+		
+	if(!$stmt->bind_param("ss", $email, $salt))
+	{
+		echo '<h1>Error on second select bind</h1>';
+		exit();
+			
+	} else {
+		if($stmt->execute()){
+			$stmt->bind_result($user_id);
+			
+		} else {
+			echo '<h1>Error on execute</h1>';
+			exit();
+		}
+		
+		$stmt->fetch();
+				
+		$stmt->close();
+				
+		$stmt = $mysqli->prepare("INSERT INTO blog (name, user_id) VALUES (?, ?)");	
+		
+		$blog_name = mysql_real_escape_string($fname.'\'s Blog');
+			
+		if(!$stmt->bind_param("ss", $blog_name, $user_id))
+		{
+			echo '<h1>Error on insert bind</h1>';
+			exit();
+		} else {
+			if(!$stmt->execute()){
+				echo '<h1>Error on execution of insert</h1>';
+			}
+		}
+	}
+	
+	echo '<h1>Success!</h1><br><form action="login.html">
     		<input type="submit" value="Login to Var!">
 		</form>';
 } else {
