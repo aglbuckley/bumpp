@@ -29,7 +29,7 @@ if ($mysqli->connect_errno) {
 /* create a prepared statement */
 if ($stmt = $mysqli->prepare("SELECT first_name, last_name, email, password, salt, user_id FROM user WHERE email=?")) {
 
-	if(!$stmt->bind_param("s", $email))
+	if(!$stmt->bind_param("s", $mysqli->real_escape_string($email)))
 	{
 		echo "Binding failed: (".$stmt->errno.")".$stmt->error;
 		exit();

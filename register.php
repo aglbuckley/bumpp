@@ -33,7 +33,7 @@ $hash = hash('sha512', $password.$salt);
 
 $stmt = $mysqli->prepare("INSERT INTO user (first_name, last_name, email, password, salt) VALUES (?, ?, ?, ?, ?)");
 
-if(!$stmt->bind_param("sssss", $fname, $lname, $email, $hash, $salt))
+if(!$stmt->bind_param("sssss", $mysqli->real_escape_string($fname), $mysqli->real_escape_string($lname), $mysqli->real_escape_string($email), $hash, $salt))
 {
 	echo "Binding failed: (".$stmt->errno.") ".$stmt->error;
 }
@@ -42,7 +42,7 @@ if ($stmt->execute()) {
 			
 	$stmt = $mysqli->prepare("SELECT user_id FROM user WHERE email = ? AND salt = ?");
 		
-	if(!$stmt->bind_param("ss", $email, $salt))
+	if(!$stmt->bind_param("ss", $mysqli->real_escape_string($email), $salt))
 	{
 		echo '<h1>Error on second select bind</h1>';
 		exit();
@@ -62,7 +62,7 @@ if ($stmt->execute()) {
 				
 		$stmt = $mysqli->prepare("INSERT INTO blog (name, user_id) VALUES (?, ?)");	
 		
-		$blog_name = mysql_real_escape_string($fname.'\'s Blog');
+		$blog_name = $mysqli->real_escape_string($fname.'\'s Blog');
 			
 		if(!$stmt->bind_param("ss", $blog_name, $user_id))
 		{
