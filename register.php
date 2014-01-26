@@ -18,7 +18,9 @@ if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['em
 	exit();
 }
 
-$mysqli = new mysqli("localhost", "root", "root", "main_test_db");
+//$mysqli = new mysqli("localhost", "root", "root", "main_test_db");
+$mysqli = new mysqli("eu-cdbr-azure-north-b.cloudapp.net", "b4076f65ff0228", "50c893e0", "bumppAdwhDiig5M6");
+
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }

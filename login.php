@@ -19,7 +19,9 @@ if(isset($_POST['email']) && isset($_POST['password']))
 	//exit();
 }
 
-$mysqli = new mysqli("localhost", "root", "root", "main_test_db");
+//$mysqli = new mysqli("localhost", "root", "root", "main_test_db");
+$mysqli = new mysqli("eu-cdbr-azure-north-b.cloudapp.net", "b4076f65ff0228", "50c893e0", "bumppAdwhDiig5M6");
+
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
