@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="css/foundation.css" />
+    	<script src="js/vendor/modernizr.js"></script>
+	</head>
+	
+	<body>
+		<nav class="top-bar" data-topbar> 
+			<ul class="title-area"> 
+				<li class="name"> 
+					<h1><a href="/bumpp">bumpp</a></h1> 
+				</li> 
+				<li class="toggle-topbar menu-icon"><a href="#">Menu</a></li> 
+			</ul> 
+		
+			<section class="top-bar-section"> 
+				<!-- Right Nav Section --> 
+				<ul class="right"> 
+					<li class="has-dropdown"> 
+						<a href="#">Settings</a> 
+						<ul class="dropdown"> 
+							<li><a href="login.html">Login</a></li> 
+						</ul> 
+					</li> 
+				</ul> 
+			
+				<!-- Left Nav Section --> 
+				<ul class="left"> 
+					<li><a href="login.html">Login</a></li>
+				</ul> 
+			</section> 
+		</nav>
+		<section role="main">
+			<div class="row">
+				<dl class="accordion" data-accordion>
+					<dd>
+						<a href="#panel1">Login</a>
+						<div id="panel1" class="content active">
+							<form data-abide name="input" action="login.php" method="post"> 
+								<fieldset>
+									<legend>Login</legend>
+									<div class="email-field"> 
+										<label>Email
+											<small>required</small>
+										</label> 
+										<input type="text" name="email" placeholder="email" required pattern="email"> 
+										<small class="error">A valid email address is required.</small> 
+									</div> 
+									<div class="password-field">
+										<label>Password <small>required</small></label>
+										<input type="password" name="password" placeholder="password" required pattern=[a-zA-Z0-9]+>
+										<small class="error">Password Required</small>
+									</div>
+									<button type="submit">Login</button> 
+								</fieldset>
+							</form>
+						</div>
+					</dd>
+					<dd>
+						<a href="#panel2">Register</a>
+						<div id="panel2" class="content">
+							<form data-abide name="input" action="register.php" method="post"> 
+								<fieldset>
+									<legend>Register</legend>
+									<div class="name-field">
+										<label>First Name
+											<small>required</small>
+										</label>
+										<input type="text" name="first_name" placeholder="first name" required pattern=[a-zA-z]+>
+										<small class="error">Please enter a real name.</small>
+									</div>
+									<div class="name-field">
+										<label>Last Name
+											<small>required</small>
+										</label>
+										<input type="text" name="last_name" placeholder="last name" required pattern=[a-zA-z]+>
+										<small class="error">Please enter a real name.</small>
+									</div>
+									<div class="email-field"> 
+										<label>Email
+											<small>required</small>
+										</label> 
+										<input type="text" name="email" placeholder="email" required pattern="email"> 
+										<small class="error">A valid email address is required.</small> 
+									</div> 
+									<div class="password-field">
+										<label>Password 
+											<small>required</small>
+										</label>
+										<input type="password" name="password" placeholder="password" required pattern="password">
+										<small class="error">Your password must match the requirements</small>
+									</div>
+									<div class="password-confirmation-field">
+										<label>Confirm Password
+											<small>required</small>
+										</label>
+										<input type="password" placeholder="reenter password" required pattern="password" data-equalto="password">
+										<small class="error">The supplied password does not match</small>
+									</div>
+									<button type="submit">Register</button> 
+								</fieldset>
+							</form>
+						</div>
+					</dd>
+				</dl>
+			</div>
+		</section>
+
+		<script src="js/vendor/jquery.js"></script>
+    	<script src="js/foundation.min.js"></script>
+    	<script src="js/foundation/foundation.abide.js"></script>
+    	<script>
+    	  $(document).foundation();
+   		</script> 
+	</body>
+</html>
