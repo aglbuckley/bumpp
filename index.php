@@ -85,12 +85,12 @@
 				<hr></hr>
 				<ul class="example-orbit" data-orbit> 
 					<li> 
-						<img src="images/london_sm.jpg" alt="slide 1" /> 
+						<img src="images/london.jpg" alt="slide 1" /> 
 						<div class="orbit-caption"> 
 							London. 
 						</div> 
 					</li> 
-					<li> 
+					<!--<li> 
 						<img src="images/lake_sm.jpg" alt="slide 2" /> 
 						<div class="orbit-caption"> 
 							Lake. 
@@ -101,7 +101,7 @@
 						<div class="orbit-caption"> 
 							Mountain. 
 						</div> 
-					</li>
+					</li>-->
 				</ul>
 			</div>
 		</section>
