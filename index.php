@@ -71,7 +71,7 @@
 		 	$lname = $_SESSION['lname'];
 		 	
 		 	echo '<div id="welcomeModal" class="reveal-modal" data-reveal> 
-			<h1>Welcome to CornFlake, '.$fname.'!</h1> 
+			<h1>Welcome to bumpp, '.$fname.'!</h1> 
 			<p>More info coming soon...</p> 
 			<a class="close-reveal-modal">&#215;</a> 
 			</div>';
