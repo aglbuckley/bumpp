@@ -190,10 +190,11 @@
 						}
 					}
 
-					if ($stmt = $mysqli->prepare("SELECT name, content FROM blogpost WHERE blog_id=? ORDER BY timestamp DESC")) {
+					if ($stmt = $mysqli->prepare("SELECT name, content, timestamp FROM blogpost WHERE blog_id=? ORDER BY timestamp DESC")) {
 						
 						$postName = "";
 						$postContent = "";
+						$timestamp = 0;
 
 						if(!$stmt->bind_param("i", $_SESSION['blog_id']))
 						{
@@ -203,7 +204,7 @@
 						} else {
 							if($stmt->execute()){
 
-								if($stmt->bind_result($postName, $postContent))
+								if($stmt->bind_result($postName, $postContent, $timestamp))
 								{
 								} else {
 									exit();
@@ -221,7 +222,10 @@
 							
 							while($stmt->fetch())
 							{
-								echo '<h3 class="subheader">'.$postName.'</h3><br>';
+								$timestamp = strtotime($timestamp);
+								$timestamp = date("l d F Y \a\\t h:i a", $timestamp);
+								echo '<h3 class="subheader">'.$postName.'</h3>';
+								echo '<h5>Posted: '.$timestamp.'</h5><br>';
 								echo stripslashes(str_replace("\\r\\n",'',$postContent)).'<hr></hr>';
 							}
 			
