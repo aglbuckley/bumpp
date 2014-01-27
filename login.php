@@ -62,7 +62,7 @@ if ($stmt = $mysqli->prepare("SELECT first_name, last_name, email, password, sal
 		$_SESSION['fname'] = $fname;
 		$_SESSION['lname'] = $lname;
 		echo '<h1>Success!</h1><br>';
-		header('Location: index.php');
+		header('Location: ./');
 		exit();
 	} else {
 		header('Location: login.html');
