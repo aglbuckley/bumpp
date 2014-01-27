@@ -190,7 +190,7 @@
 						}
 					}
 
-					if ($stmt = $mysqli->prepare("SELECT name, content FROM blogpost WHERE blog_id=?")) {
+					if ($stmt = $mysqli->prepare("SELECT name, content FROM blogpost WHERE blog_id=? ORDER BY timestamp DESC")) {
 						
 						$postName = "";
 						$postContent = "";
@@ -222,7 +222,7 @@
 							while($stmt->fetch())
 							{
 								echo '<h3 class="subheader">'.$postName.'</h3><br>';
-								echo stripslashes(str_replace("\\r\\n",'',$postContent)).'<br><hr></hr>';
+								echo stripslashes(str_replace("\\r\\n",'',$postContent)).'<hr></hr>';
 							}
 			
 							$stmt->close();

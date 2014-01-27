@@ -56,6 +56,7 @@ if ($stmt = $mysqli->prepare("SELECT first_name, last_name, email, password, sal
 	if($clientHash == $serverPasswordHash)
 	{
 		session_start();
+		$_SESSION['mysqli'] = $mysqli;
 		$_SESSION['user_id'] = $user_id;
 		$_SESSION['email'] = $email;
 		$_SESSION['fname'] = $fname;

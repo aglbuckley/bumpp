@@ -1,8 +1,15 @@
 <?php
+//Code taken and adapted from the php manual
+//URL: http://uk3.php.net/session_destroy
 
 // Initialize the session.
 // If you are using session_name("something"), don't forget it now!
 session_start();
+
+//Cloes the mysqli connection manually. Not sure if this is necessary
+$mysqli = $_SESSION['mysqli'];
+$mysqli->close();
+$mysqli = null;
 
 // Unset all of the session variables.
 $_SESSION = array();
