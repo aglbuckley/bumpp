@@ -35,7 +35,7 @@
 					</li>
 					<li class="divider"></li>
 					<li id="newPostNav" class="has-form"> 
-						<a href="#" class="button">New Story</a> 
+						<a href="newPost.php" class="button">New Story</a> 
 					</li>
 				</ul>
 			
