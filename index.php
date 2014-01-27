@@ -84,7 +84,8 @@
 				<h1 id="blogHeader">
 				<?php
 					if(!isset($_SESSION['blog_name']) || $_SESSION['blog_name']==''){
-						$blogName = "";					
+						$blogName = "";	
+						$blod_id = -1;				
 						$mysqli = new mysqli("eu-cdbr-azure-north-b.cloudapp.net", "b4076f65ff0228", "50c893e0", "bumppAdwhDiig5M6");
 
 						if ($mysqli->connect_errno) {
@@ -92,7 +93,7 @@
 						}
 
 						/* create a prepared statement */
-						if ($stmt = $mysqli->prepare("SELECT name FROM blog WHERE user_id=?")) {
+						if ($stmt = $mysqli->prepare("SELECT name, blog_id FROM blog WHERE user_id=?")) {
 						
 							if(!$stmt->bind_param("s", $_SESSION['user_id']))
 							{
@@ -101,7 +102,7 @@
 			
 							} else {
 								if($stmt->execute()){
-									$stmt->bind_result($blogName);
+									$stmt->bind_result($blogName, $blog_id);
 			
 								} else {
 									echo '<h1>Error on execute</h1>';
@@ -114,6 +115,7 @@
 							}
 						}
 						$_SESSION['blog_name'] = stripslashes($blogName);
+						$_SESSION['blog_id'] = $blog_id;
 					}
 					echo $_SESSION['blog_name'];
 
@@ -123,6 +125,9 @@
 				</div>
 				<h3 class="subheader"> It's really easy to customize your very own blog!</h3>
 				<hr></hr>
+				
+				<!--Orbit Stuff-->
+				
 				<ul class="example-orbit" data-orbit> 
 					<li> 
 						<img src="images/london1.jpg" alt="slide 1" /> 
@@ -143,6 +148,90 @@
 						</div> 
 					</li>-->
 				</ul>
+				
+				<!--End Orbit Stuff -->
+				
+				<hr></hr>
+				
+				<?php
+					error_reporting(E_ALL);
+					ini_set('display_errors',1);
+					ini_set('memory_limit', '-1');
+					$mysqli = new mysqli("eu-cdbr-azure-north-b.cloudapp.net", "b4076f65ff0228", "50c893e0", "bumppAdwhDiig5M6");
+
+					if ($mysqli->connect_errno) {
+						echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+					}
+					
+					if(!isset($_SESSION['blog_id']) || empty($_SESSION['blog_id']) || $_SESSION['blog_id'] <0)
+					{
+						$blog_id = -1;
+						if ($stmt = $mysqli->prepare("SELECT blog_id FROM blog WHERE user_id=?")) {
+							if(!$stmt->bind_param("s", $_SESSION['user_id']))
+							{
+								echo '<h1>Error on select bind</h1>';
+								exit();
+
+							} else {
+								if($stmt->execute()){
+									$stmt->bind_result($blog_id);
+
+								} else {
+									echo '<h1>Error on execute</h1>';
+									exit();
+								}
+
+								$stmt->fetch();
+		
+								$_SESSION['blog_id'] = $blog_id;
+
+								$stmt->close();
+							}
+						}
+					}
+
+					if ($stmt = $mysqli->prepare("SELECT name, content FROM blogpost WHERE blog_id=?")) {
+						
+						$postName = "";
+						$postContent = "";
+
+						if(!$stmt->bind_param("i", $_SESSION['blog_id']))
+						{
+							echo '<h1>Error on select bind</h1>';
+							exit();
+		
+						} else {
+							if($stmt->execute()){
+
+								if($stmt->bind_result($postName, $postContent))
+								{
+								} else {
+									exit();
+								}
+
+							} else {
+								echo '<h1>Error on execute</h1>';
+								exit();
+							}
+							$stmt->store_result();
+							if(mysqli_stmt_num_rows($stmt)<1)
+							{
+								echo '<h3 class="subheader">You have no blog entries yet. Click the new story button above to make your first one!</h3>';
+							}
+							
+							while($stmt->fetch())
+							{
+								echo '<h3 class="subheader">'.$postName.'</h3><br>';
+								echo stripslashes(str_replace("\\r\\n",'',$postContent)).'<br><hr></hr>';
+							}
+			
+							$stmt->close();
+						}
+					}
+					$mysqli->close();
+					
+				?>
+				
 			</div>
 		</section>
 		

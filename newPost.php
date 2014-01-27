@@ -104,14 +104,14 @@
 						}
 						echo $_SESSION['blog_name'];
 
-					
+						//$mysqli->close();
 					?></h1>
 					<small><a href="#">Rename Blog</a></small>
 				</div>
 				<br></br>
-				<form name="input" action="#" method="post">
-					<input type="text" placeholder="New Post">
-					<textarea></textarea>
+				<form name="input" action="submitPost.php" method="post">
+					<input type="text" name="post_name" placeholder="New Post">
+					<textarea name="post_content"></textarea>
 					</br>
 					<button type="submit">Post!</button>
 				</form>
