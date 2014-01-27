@@ -108,10 +108,13 @@
 					?></h1>
 					<small><a href="#">Rename Blog</a></small>
 				</div>
-				<h2><small>New Post</small></h2>
-				<textarea></textarea>
-				</br>
-				<a href="#" class="button radius round">Post!</a>
+				<br></br>
+				<form name="input" action="#" method="post">
+					<input type="text" placeholder="New Post">
+					<textarea></textarea>
+					</br>
+					<button type="submit">Post!</button>
+				</form>
 			</div>
 		</section>
 		
