@@ -146,25 +146,13 @@
 			</div>
 		</section>
 		
-		<!-- Joyride stuff -->
-		<ol class="joyride-list" data-joyride>
-  			<li data-id="blogHeader" data-button="End" data-options="tip_location:top">
-    			<h4>Stop #1</h4>
-    			<p>You can control all the details for you tour stop. Any valid HTML will work inside of Joyride.</p>
-  			</li>
-		</ol>
-		
 		<script src="js/vendor/jquery.js"></script>
     	<script src="js/foundation.min.js"></script>
-    	<script src="js/foundation/foundation.joyride.js"></script>
-    	<script src="js/vendor/jquery.cookie.js"></script>
     	<script src="js/foundation/foundation.reveal.js"></script>
     	<script>
 			$(document).foundation();
-			if ($('[data-joyride]')) {
-				$(document).foundation('joyride', 'start');
-			} 
-    	  $( document ).ready(function() {
+			
+    	  	$(document).ready(function() {
     	  
     	  	$('#welcomeModal').foundation('reveal', 'open');
     	  
