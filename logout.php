@@ -7,9 +7,12 @@
 session_start();
 
 //Cloes the mysqli connection manually. Not sure if this is necessary
-$mysqli = $_SESSION['mysqli'];
-$mysqli->close();
-$mysqli = null;
+if(isset($_SESSION['mysqli']))
+{
+	$mysqli = $_SESSION['mysqli'];
+	$mysqli->close();
+	$mysqli = null;
+}
 
 // Unset all of the session variables.
 $_SESSION = array();
