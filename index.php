@@ -116,7 +116,7 @@
 							$_SESSION['blog_name'] = stripslashes($blogName);
 							$_SESSION['blog_id'] = $blog_id;
 						}
-						echo $_SESSION['blog_name'];
+						echo '<hr></hr>'.$_SESSION['blog_name'];
 					?></h1>
 					<small><a href="javascript:blogNameUpdate()" id="renameBlog">Rename Blog</a></small>
 				</div>
@@ -223,7 +223,8 @@
 								$timestamp = date("l d F Y \a\\t h:i a", $timestamp);
 								echo '<h3 class="subheader">'.$postName.'</h3>';
 								echo '<h5>Posted: '.$timestamp.'</h5><br>';
-								echo stripslashes(str_replace("\\r\\n",'',$postContent)).'<hr></hr>';
+								echo stripslashes(str_replace("\\r\\n",'',$postContent));
+								echo '<hr></hr><p><a href="#">Comment (0)</a>&nbsp;&nbsp; | &nbsp;&nbsp;<a href="#">bumpp up</a>&nbsp;&nbsp; | &nbsp;&nbsp;<a href="#">bumpp down</a></p><hr></hr><hr></hr>';
 							}
 			
 							$stmt->close();
@@ -255,7 +256,7 @@
 				changeNameForm.setAttribute('action', 'changeName.php');
 				changeNameForm.setAttribute('method', 'post');
 				var blogHeaderContainer = document.getElementById('blogHeaderDiv');
-				//blogHeaderContainer.setAttribute('class', 'large-12 columns');
+
 				var blogHeaderSubContainer = document.createElement('div');
 				blogHeaderSubContainer.setAttribute('class', 'row collapse');
 				var blogHeaderInputContainer = document.createElement('div');
@@ -269,7 +270,7 @@
 				blogNameInput.setAttribute('name', 'new_name');
 				blogNameInput.setAttribute('value', blogName);
 				blogNameInput.setAttribute('id', 'blogHeaderInput');
-				//blogNameInput.innerHTML = blogName;
+
 				var blogNameButton = document.createElement('button');
 				blogNameButton.setAttribute('name', 'submitBlogNameButton');
 				blogNameButton.setAttribute('id', 'submitBlogNameButton');
@@ -285,8 +286,7 @@
 				blogHeaderSubContainer.appendChild(blogHeaderButtonContainer);
 				changeNameForm.appendChild(blogHeaderSubContainer);
 				blogHeaderContainer.appendChild(changeNameForm); 
-// 				blogHeaderContainer.appendChild(blogNameInput);
-// 				blogHeaderContainer.appendChild(blogNameButton);
+
 				var blogRenameButton = document.getElementById('renameBlog');
 				blogRenameButton.parentNode.removeChild(blogRenameButton);
 			}
