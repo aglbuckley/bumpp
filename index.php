@@ -81,6 +81,7 @@
 		<section role="main">
 			<div class="row">
 				<div id="blogHeaderDiv">
+					<hr>
 					<h1 id="blogHeader"><?php
 						if(!isset($_SESSION['blog_name']) || $_SESSION['blog_name']==''){
 							$blogName = "";	
@@ -116,7 +117,7 @@
 							$_SESSION['blog_name'] = stripslashes($blogName);
 							$_SESSION['blog_id'] = $blog_id;
 						}
-						echo '<hr>'.$_SESSION['blog_name'];
+						echo $_SESSION['blog_name'];
 					?></h1>
 					<small><a href="javascript:blogNameUpdate()" id="renameBlog">Rename Blog</a></small>
 				</div>
@@ -148,7 +149,7 @@
 				
 				<!--End Orbit Stuff -->
 				
-				<hr></hr>
+				<hr>
 				
 				<?php
 					//error_reporting(E_ALL);
