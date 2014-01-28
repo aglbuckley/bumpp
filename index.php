@@ -116,12 +116,12 @@
 							$_SESSION['blog_name'] = stripslashes($blogName);
 							$_SESSION['blog_id'] = $blog_id;
 						}
-						echo '<hr></hr>'.$_SESSION['blog_name'];
+						echo '<hr>'.$_SESSION['blog_name'];
 					?></h1>
 					<small><a href="javascript:blogNameUpdate()" id="renameBlog">Rename Blog</a></small>
 				</div>
 				<h3 class="subheader"> It's really easy to customize your very own blog!</h3>
-				<hr></hr>
+				<hr>
 				
 				<!--Orbit Stuff-->
 				
@@ -224,7 +224,7 @@
 								echo '<h3 class="subheader">'.$postName.'</h3>';
 								echo '<h5>Posted: '.$timestamp.'</h5><br>';
 								echo stripslashes(str_replace("\\r\\n",'',$postContent));
-								echo '<hr></hr><p><a href="#">Comment (0)</a>&nbsp;&nbsp; | &nbsp;&nbsp;<a href="#">bumpp up</a>&nbsp;&nbsp; | &nbsp;&nbsp;<a href="#">bumpp down</a></p><hr></hr><hr></hr>';
+								echo '<hr><p><a href="#">Comment (0)</a>&nbsp;&nbsp; | &nbsp;&nbsp;<a href="#">bumpp up</a>&nbsp;&nbsp; | &nbsp;&nbsp;<a href="#">bumpp down</a></p><hr><hr>';
 							}
 			
 							$stmt->close();
