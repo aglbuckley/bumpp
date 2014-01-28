@@ -728,7 +728,7 @@ user_dir =
 ; http://php.net/extension-dir
 ; extension_dir = "./"
 ; On windows:
- extension_dir = ".\ext"
+ extension_dir = "ext"
 
 ; Whether or not to enable the dl() function.  The dl() function does NOT work
 ; properly in multithreaded servers, such as IIS or Zeus, and is automatically
@@ -868,7 +868,7 @@ default_socket_timeout = 60
 ;
 ;extension=php_bz2.dll
 ;extension=php_curl.dll
-;extension=php_fileinfo.dll
+extension=php_fileinfo.dll
 ;extension=php_gd2.dll
 ;extension=php_gettext.dll
 ;extension=php_gmp.dll
