@@ -35,8 +35,6 @@
 		<section role="main">
 			<div class="row">
 				<?php
-phpinfo();
-
 				require_once 'mandrill-api-php/src/Mandrill.php';
 				error_reporting(E_ALL);
 				ini_set('display_errors',1);
