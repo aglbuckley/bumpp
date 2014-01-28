@@ -1,3 +1,11 @@
+<?php
+	session_start();
+	if(!isset($_SESSION['email']) || !isset($_SESSION['user_id']) || !isset($_SESSION['fname']))
+	{
+		header('Location: login.html');
+		exit();
+	}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,16 +14,6 @@
     	<script src="js/vendor/modernizr.js"></script>
 	</head>
 	<body>
-	
-		<?php
-			session_start();
-			if(!isset($_SESSION['email']) || !isset($_SESSION['user_id']) || !isset($_SESSION['fname']))
-			{
-				header('Location: login.html');
-				exit();
-			}
-		?>
-	
 		<nav class="top-bar" data-topbar> 
 			<ul class="title-area"> 
 				<li class="name"> 
