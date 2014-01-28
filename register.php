@@ -1,7 +1,3 @@
-<?php
-				session_start();
-
-?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -69,6 +65,7 @@
 					exit();
 				}
 
+				//session_start();
 				$salt = uniqid(mt_rand(), true);
 				$salt = substr($salt,0,23);
 				$hash = hash('sha512', $password.$salt);
