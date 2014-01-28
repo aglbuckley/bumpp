@@ -7,6 +7,7 @@ $email = "";
 $password = "";
 $serverPasswordHash = "";
 $salt = "";
+$verified = 0;
 $user_id = -1;
 $result = -1;
 
@@ -27,7 +28,7 @@ if ($mysqli->connect_errno) {
 }
 
 /* create a prepared statement */
-if ($stmt = $mysqli->prepare("SELECT first_name, last_name, email, password, salt, user_id FROM user WHERE email=?")) {
+if ($stmt = $mysqli->prepare("SELECT first_name, last_name, email, password, salt, user_id, verified FROM user WHERE email=?")) {
 
 	if(!$stmt->bind_param("s", $mysqli->real_escape_string($email)))
 	{
@@ -40,7 +41,7 @@ if ($stmt = $mysqli->prepare("SELECT first_name, last_name, email, password, sal
     	exit();
     }
 
-    $stmt->bind_result($fname, $lname, $email, $serverPasswordHash, $salt, $user_id);
+    $stmt->bind_result($fname, $lname, $email, $serverPasswordHash, $salt, $user_id, $verified);
 
     $result = $stmt->fetch();
         
@@ -49,6 +50,12 @@ if ($stmt = $mysqli->prepare("SELECT first_name, last_name, email, password, sal
     		<input type="submit" value="Login to Var!">
 		</form>';
 		exit();
+    }
+    
+    if ($verified == 0)
+    {
+    	echo '<h1>Please verify your account before logging in.</h1';
+    	exit();
     }
 
 	$clientHash = hash('sha512', $password.$salt);
