@@ -83,18 +83,18 @@
 								echo '<h2 class="subheader">You may now login</h2>';
 								exit();
 							} else {
-								echo '<h1>We could not verify your account. Sorry. 0</h1>';
+								echo '<h1>We could not verify your account. Sorry.</h1>';
 								//header('Location: ./');
 								exit();
 							}
 						} else {
-							echo '<h1>We could not verify your account. Sorry. 1</h1>';
+							echo '<h1>We could not verify your account. Sorry.</h1>';
 							//header('Location: ./');
 							exit();
 						}
 					}
 				} else {
-					echo '<h1>We could not verify your account. Sorry. 2</h1>';
+					echo '<h1>We could not verify your account. Sorry.</h1>';
 					header('Location: ./');
 					exit();
 				}
