@@ -80,48 +80,45 @@
 		 ?>
 		<section role="main">
 			<div class="row">
-				<div id="blogHeader">
-				<h1 id="blogHeader">
-				<?php
-					if(!isset($_SESSION['blog_name']) || $_SESSION['blog_name']==''){
-						$blogName = "";	
-						$blod_id = -1;				
-						$mysqli = new mysqli("eu-cdbr-azure-north-b.cloudapp.net", "b4076f65ff0228", "50c893e0", "bumppAdwhDiig5M6");
+				<div id="blogHeaderDiv">
+					<h1 id="blogHeader"><?php
+						if(!isset($_SESSION['blog_name']) || $_SESSION['blog_name']==''){
+							$blogName = "";	
+							$blod_id = -1;				
+							$mysqli = new mysqli("eu-cdbr-azure-north-b.cloudapp.net", "b4076f65ff0228", "50c893e0", "bumppAdwhDiig5M6");
 
-						if ($mysqli->connect_errno) {
-							echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-						}
+							if ($mysqli->connect_errno) {
+								echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+							}
 
-						/* create a prepared statement */
-						if ($stmt = $mysqli->prepare("SELECT name, blog_id FROM blog WHERE user_id=?")) {
+							/* create a prepared statement */
+							if ($stmt = $mysqli->prepare("SELECT name, blog_id FROM blog WHERE user_id=?")) {
 						
-							if(!$stmt->bind_param("s", $_SESSION['user_id']))
-							{
-								echo '<h1>Error on select bind</h1>';
-								exit();
-			
-							} else {
-								if($stmt->execute()){
-									$stmt->bind_result($blogName, $blog_id);
+								if(!$stmt->bind_param("s", $_SESSION['user_id']))
+								{
+									echo '<h1>Error on select bind</h1>';
+									exit();
 			
 								} else {
-									echo '<h1>Error on execute</h1>';
-									exit();
-								}
+									if($stmt->execute()){
+										$stmt->bind_result($blogName, $blog_id);
+			
+									} else {
+										echo '<h1>Error on execute</h1>';
+										exit();
+									}
 		
-								$stmt->fetch();
+									$stmt->fetch();
 				
-								$stmt->close();
+									$stmt->close();
+								}
 							}
+							$_SESSION['blog_name'] = stripslashes($blogName);
+							$_SESSION['blog_id'] = $blog_id;
 						}
-						$_SESSION['blog_name'] = stripslashes($blogName);
-						$_SESSION['blog_id'] = $blog_id;
-					}
-					echo $_SESSION['blog_name'];
-
-					
-				?></h1>
-				<small><a href="#">Rename Blog</a></small>
+						echo $_SESSION['blog_name'];
+					?></h1>
+					<small><a href="javascript:blogNameUpdate()" id="renameBlog">Rename Blog</a></small>
 				</div>
 				<h3 class="subheader"> It's really easy to customize your very own blog!</h3>
 				<hr></hr>
@@ -250,6 +247,49 @@
     	  	$('#welcomeModal').foundation('reveal', 'open');
     	  
 			});
+			
+			function blogNameUpdate()
+			{
+				var changeNameForm = document.createElement('form');
+				changeNameForm.setAttribute('name', 'input');
+				changeNameForm.setAttribute('action', 'changeName.php');
+				changeNameForm.setAttribute('method', 'post');
+				var blogHeaderContainer = document.getElementById('blogHeaderDiv');
+				//blogHeaderContainer.setAttribute('class', 'large-12 columns');
+				var blogHeaderSubContainer = document.createElement('div');
+				blogHeaderSubContainer.setAttribute('class', 'row collapse');
+				var blogHeaderInputContainer = document.createElement('div');
+				blogHeaderInputContainer.setAttribute('class', 'small-10 columns');
+				var blogHeaderButtonContainer = document.createElement('div');
+				blogHeaderButtonContainer.setAttribute('class', 'small-2 columns');
+				var blogHeader = document.getElementById('blogHeader');
+				var blogName = blogHeader.innerHTML;
+				var blogNameInput = document.createElement('input');
+				blogNameInput.setAttribute('type', 'text');
+				blogNameInput.setAttribute('name', 'new_name');
+				blogNameInput.setAttribute('value', blogName);
+				blogNameInput.setAttribute('id', 'blogHeaderInput');
+				//blogNameInput.innerHTML = blogName;
+				var blogNameButton = document.createElement('button');
+				blogNameButton.setAttribute('name', 'submitBlogNameButton');
+				blogNameButton.setAttribute('id', 'submitBlogNameButton');
+				blogNameButton.setAttribute('class', 'button prefix');
+				blogNameButton.setAttribute('type', 'submit');
+				blogNameButton.innerHTML = "Change Name";
+				blogHeader.parentNode.removeChild(blogHeader);
+				blogHeaderContainer.appendChild(document.createElement('br'));
+				
+				blogHeaderInputContainer.appendChild(blogNameInput);
+				blogHeaderButtonContainer.appendChild(blogNameButton);
+				blogHeaderSubContainer.appendChild(blogHeaderInputContainer);
+				blogHeaderSubContainer.appendChild(blogHeaderButtonContainer);
+				changeNameForm.appendChild(blogHeaderSubContainer);
+				blogHeaderContainer.appendChild(changeNameForm); 
+// 				blogHeaderContainer.appendChild(blogNameInput);
+// 				blogHeaderContainer.appendChild(blogNameButton);
+				var blogRenameButton = document.getElementById('renameBlog');
+				blogRenameButton.parentNode.removeChild(blogRenameButton);
+			}
    		</script> 
 	</body>
 </html>

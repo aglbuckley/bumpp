@@ -15,7 +15,7 @@ if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['em
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 } else {
-	header('Location: register.html');
+	header('Location: login.html');
 	exit();
 }
 

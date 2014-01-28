@@ -2,14 +2,13 @@
 
 session_start();
 
-if(!isset($_SESSION['user_id']) || empty($_SESSION['user_id']) || !isset($_POST['post_name']) || empty($_POST['post_name']) || !isset($_POST['post_content']) || empty($_POST['post_content']))
+if(!isset($_SESSION['user_id']) || empty($_SESSION['user_id']) || !isset($_POST['new_name']) || empty($_POST['new_name']))
 {
-	header('Location: newPost.php');
+	header('Location: ./');
 	exit();
 }
 
-$postName = $_POST['post_name'];
-$postContent = $_POST['post_content'];
+$new_name = $_POST['new_name'];
 $blog_id = -1;
 
 //$mysqli = new mysqli("localhost", "root", "root", "main_test_db");
@@ -46,14 +45,15 @@ if(!isset($_SESSION['blog_id']) || empty($_SESSION['blog_id']) || $_SESSION['blo
 	}
 }
 
-$stmt = $mysqli->prepare("INSERT INTO blogpost (blog_id, name, content) VALUES (?, ?, ?)");
+$stmt = $mysqli->prepare("UPDATE blog SET name = ? WHERE blog_id = ? AND user_id = ?");
 
-if(!$stmt->bind_param("sss", $mysqli->real_escape_string($_SESSION['blog_id']), $mysqli->real_escape_string($postName), $mysqli->real_escape_string($postContent)))
+if(!$stmt->bind_param("sii", $mysqli->real_escape_string($new_name), $mysqli->real_escape_string($_SESSION['user_id']), $mysqli->real_escape_string($_SESSION['blog_id'])))
 {
 	echo "Binding failed: (".$stmt->errno.") ".$stmt->error;
 }
 
 if ($stmt->execute()) {
+	$_SESSION['blog_name'] = $new_name;
 	header('Location: ./');
 	exit();
 } else {
