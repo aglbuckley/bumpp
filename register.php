@@ -35,6 +35,11 @@
 		<section role="main">
 			<div class="row">
 				<?php
+				if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
+    echo 'no mysqli :(';
+} else {
+    echo 'we gots it';
+}
 				require_once 'mandrill-api-php/src/Mandrill.php';
 				error_reporting(E_ALL);
 				ini_set('display_errors',1);
@@ -58,7 +63,7 @@
 				}
 
 				//$mysqli = new mysqli("localhost", "root", "root", "main_test_db");
-				$mysqli = new MySQLi("eu-cdbr-azure-north-b.cloudapp.net", "b4076f65ff0228", "50c893e0", "bumppAdwhDiig5M6");
+				$mysqli = new mysqli("eu-cdbr-azure-north-b.cloudapp.net", "b4076f65ff0228", "50c893e0", "bumppAdwhDiig5M6");
 
 				if ($mysqli->connect_errno) {
 					echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
