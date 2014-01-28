@@ -35,11 +35,10 @@
 		<section role="main">
 			<div class="row">
 				<?php
-				if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
-    echo 'no mysqli :(';
-} else {
-    echo 'we gots it';
-}
+				ob_start();
+phpinfo();
+$info = ob_get_contents();
+ob_end_clean();
 				require_once 'mandrill-api-php/src/Mandrill.php';
 				error_reporting(E_ALL);
 				ini_set('display_errors',1);
