@@ -195,7 +195,7 @@
 				} else {
 				   echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
 				}
-				session_destroy();
+				//session_destroy();
 				?>
 			</div>
 		</section>
