@@ -728,7 +728,7 @@ user_dir =
 ; http://php.net/extension-dir
 ; extension_dir = "./"
 ; On windows:
- extension_dir = "ext"
+ extension_dir = ".\bin\php\ext"
 
 ; Whether or not to enable the dl() function.  The dl() function does NOT work
 ; properly in multithreaded servers, such as IIS or Zeus, and is automatically
@@ -878,8 +878,8 @@ default_socket_timeout = 60
 ;extension=php_ldap.dll
 ;extension=php_mbstring.dll
 ;extension=php_exif.dll      ; Must be after mbstring as it depends on it
-extension=mysql.dll
-extension=mysqli.dll
+extension=php_mysql.dll
+extension=php_mysqli.dll
 ;extension=php_oci8.dll      ; Use with Oracle 10gR2 Instant Client
 ;extension=php_oci8_11g.dll  ; Use with Oracle 11gR2 Instant Client
 ;extension=php_openssl.dll
