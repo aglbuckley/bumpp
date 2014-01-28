@@ -36,8 +36,8 @@
 			<div class="row">
 				<?php
 				require_once 'mandrill-api-php/src/Mandrill.php';
-				//error_reporting(E_ALL);
-				//ini_set('display_errors',1);
+				error_reporting(E_ALL);
+				ini_set('display_errors',1);
 				$fname = "";
 				$lname = "";
 				$email = "";
@@ -163,8 +163,8 @@
 					} catch(Mandrill_Error $e) {
 						echo '<h1>Uh oh!</h1>';
 						echo '<h2 class="subheader">Something went wrong with the email</h2>';
-						//echo "Manrill error: ".get_class($e).' - '.$e->getMessage();
-						//throw $e;
+						echo "Manrill error: ".get_class($e).' - '.$e->getMessage();
+						throw $e;
 					}
 					//Send Verification Email
 					/*$to = $email;
