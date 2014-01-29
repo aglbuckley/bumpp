@@ -153,83 +153,96 @@
 					//error_reporting(E_ALL);
 					//ini_set('display_errors',1);
 					ini_set('memory_limit', '-1');
-					$mysqli = new mysqli("eu-cdbr-azure-north-b.cloudapp.net", "b4076f65ff0228", "50c893e0", "bumppAdwhDiig5M6");
+					try{
+						$mysqli = new mysqli("eu-cdbr-azure-north-b.cloudapp.net", "b4076f65ff0228", "50c893e0", "bumppAdwhDiig5M6");
 
-					if ($mysqli->connect_errno) {
-						echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-					}
+						if ($mysqli->connect_errno) {
+							//echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+							echo '<h1>Uh oh!</h1>';
+							echo '<h3 class="subheader">Something went wrong. Please reload the page.</h3>';
+							exit();
+						}
 					
-					if(!isset($_SESSION['blog_id']) || empty($_SESSION['blog_id']) || $_SESSION['blog_id'] <0)
-					{
-						$blog_id = -1;
-						if ($stmt = $mysqli->prepare("SELECT blog_id FROM blog WHERE user_id=?")) {
-							if(!$stmt->bind_param("s", $_SESSION['user_id']))
+						if(!isset($_SESSION['blog_id']) || empty($_SESSION['blog_id']) || $_SESSION['blog_id'] <0)
+						{
+							$blog_id = -1;
+							if ($stmt = $mysqli->prepare("SELECT blog_id FROM blog WHERE user_id=?")) {
+								if(!$stmt->bind_param("s", $_SESSION['user_id']))
+								{
+									echo '<h1>Error on select bind</h1>';
+									exit();
+
+								} else {
+									if($stmt->execute()){
+										$stmt->bind_result($blog_id);
+
+									} else {
+										echo '<h1>Error on execute</h1>';
+										exit();
+									}
+
+									$stmt->fetch();
+		
+									$_SESSION['blog_id'] = $blog_id;
+
+									$stmt->close();
+								}
+							}
+						}
+
+						if ($stmt = $mysqli->prepare("SELECT name, content, timestamp FROM blogpost WHERE blog_id=? ORDER BY timestamp DESC")) {
+						
+							$postName = "";
+							$postContent = "";
+							$timestamp = 0;
+
+							if(!$stmt->bind_param("i", $_SESSION['blog_id']))
 							{
 								echo '<h1>Error on select bind</h1>';
 								exit();
-
+		
 							} else {
 								if($stmt->execute()){
-									$stmt->bind_result($blog_id);
+
+									if($stmt->bind_result($postName, $postContent, $timestamp))
+									{
+									} else {
+										exit();
+									}
 
 								} else {
 									echo '<h1>Error on execute</h1>';
 									exit();
 								}
-
-								$stmt->fetch();
-		
-								$_SESSION['blog_id'] = $blog_id;
-
+								$stmt->store_result();
+								if(mysqli_stmt_num_rows($stmt)<1)
+								{
+									echo '<h3 class="subheader">You have no blog entries yet. Click the new story button above to make your first one!</h3>';
+								}
+							
+								while($stmt->fetch())
+								{
+									$timestamp = strtotime($timestamp);
+									$timestamp = date("l d F Y \a\\t h:i a", $timestamp);
+									echo '<h3 class="subheader">'.$postName.'</h3>';
+									echo '<h5>Posted: '.$timestamp.'</h5><br>';
+									echo stripslashes(str_replace("\\r\\n",'',$postContent));
+									echo '<hr><p><a href="#">Comment (0)</a>&nbsp;&nbsp; | &nbsp;&nbsp;<a href="#">bumpp up</a>&nbsp;&nbsp; | &nbsp;&nbsp;<a href="#">bumpp down</a></p><hr><hr>';
+								}
+			
 								$stmt->close();
 							}
-						}
-					}
-
-					if ($stmt = $mysqli->prepare("SELECT name, content, timestamp FROM blogpost WHERE blog_id=? ORDER BY timestamp DESC")) {
-						
-						$postName = "";
-						$postContent = "";
-						$timestamp = 0;
-
-						if(!$stmt->bind_param("i", $_SESSION['blog_id']))
-						{
-							echo '<h1>Error on select bind</h1>';
-							exit();
-		
 						} else {
-							if($stmt->execute()){
-
-								if($stmt->bind_result($postName, $postContent, $timestamp))
-								{
-								} else {
-									exit();
-								}
-
-							} else {
-								echo '<h1>Error on execute</h1>';
-								exit();
-							}
-							$stmt->store_result();
-							if(mysqli_stmt_num_rows($stmt)<1)
-							{
-								echo '<h3 class="subheader">You have no blog entries yet. Click the new story button above to make your first one!</h3>';
-							}
-							
-							while($stmt->fetch())
-							{
-								$timestamp = strtotime($timestamp);
-								$timestamp = date("l d F Y \a\\t h:i a", $timestamp);
-								echo '<h3 class="subheader">'.$postName.'</h3>';
-								echo '<h5>Posted: '.$timestamp.'</h5><br>';
-								echo stripslashes(str_replace("\\r\\n",'',$postContent));
-								echo '<hr><p><a href="#">Comment (0)</a>&nbsp;&nbsp; | &nbsp;&nbsp;<a href="#">bumpp up</a>&nbsp;&nbsp; | &nbsp;&nbsp;<a href="#">bumpp down</a></p><hr><hr>';
-							}
-			
-							$stmt->close();
+							echo '<h1>Uh oh!</h1>';
+							echo '<h3 class="subheader">Something went wrong. Please reload the page.</h3>';
+							exit();
 						}
+						$mysqli->close();
+					} catch(Exception $e) {
+						echo '<h1>Uh oh!</h1>';
+						echo '<h3 class="subheader">Something went wrong. Please reload the page.</h3>';
+						exit();
 					}
-					$mysqli->close();
 					
 				?>
 				
