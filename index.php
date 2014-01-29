@@ -158,9 +158,7 @@
 
 						if ($mysqli->connect_errno) {
 							//echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-							echo '<h1>Uh oh!</h1>';
-							echo '<h3 class="subheader">Something went wrong. Please reload the page.</h3>';
-							exit();
+							throw new Exception('Failed to connect');
 						}
 					
 						if(!isset($_SESSION['blog_id']) || empty($_SESSION['blog_id']) || $_SESSION['blog_id'] <0)
@@ -233,15 +231,14 @@
 								$stmt->close();
 							}
 						} else {
-							echo '<h1>Uh oh!</h1>';
-							echo '<h3 class="subheader">Something went wrong. Please reload the page.</h3>';
-							exit();
+							throw new Exception('Error on Prepare');
 						}
 						$mysqli->close();
 					} catch(Exception $e) {
 						echo '<h1>Uh oh!</h1>';
 						echo '<h3 class="subheader">Something went wrong. Please reload the page.</h3>';
-						exit();
+						$mysqli->close();
+						//exit();
 					}
 					
 				?>
