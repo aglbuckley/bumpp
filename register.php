@@ -46,7 +46,7 @@
 
 				//Eventually check to see if the user is already registered.
 
-				if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['email']) && isset($_POST['password']))
+				if(isset($_POST['first_name']) && !empty($_POST['first_name']) && isset($_POST['last_name']) && !empty($_POST['last_name']) && isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['password']) && !empty($_POST['password']))
 				{
 					$fname = $_POST['first_name'];
 					$lname = $_POST['last_name'];

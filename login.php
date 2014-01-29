@@ -11,7 +11,7 @@ $verified = 0;
 $user_id = -1;
 $result = -1;
 
-if(isset($_POST['email']) && isset($_POST['password']))
+if(isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['email']) && !empty($_POST['email']))
 {
 	$email = $_POST['email'];
 	$password = $_POST['password'];
