@@ -65,7 +65,7 @@
 					exit();
 				}
 
-				//session_start();
+				session_start();
 				$salt = uniqid(mt_rand(), true);
 				$salt = substr($salt,0,23);
 				$hash = hash('sha512', $password.$salt);
@@ -118,54 +118,11 @@
 							}
 						}
 					}
-					try{
-					$mandrill = new Mandrill('TnWM0Fr1FIwIoeWqsyTUcg');
-					$message = array(
-						'html' => '<h1>Welcome to bumpp, '.$fname.'!</h1>
-					<p>We have successfully created an account for you. All you have to do is verify you account by clicking the link below and you will be good to go!</p>
-
-					<a href="http://bumpp.azurewebsites.net/verifyAccount.php?email='.$email.'&verification='.$verification.'">Verify Me!</a></p>
-
-					<p>See you soon!<br>-The bumpp Team.
-					</p>',
-						'text' => 'Welcome to bumpp, '.$fname.'!
-					We have successfully created an account for you. All you have to do is verify you account by clicking the link below and you will be good to go!
-
-					http://bumpp.azurewebsites.net/verifyAccount.php?email='.$email.'&verification='.$verification.'
-
-					See you soon!',
-						'subject' => 'Welcome to bumpp, '.$fname.'!',
-						'from_email' => 'noreply@bumpp.azurewebsites.net',
-						'from_name' => 'bumpp',
-						'to' => array (
-							array(
-								'email' => $email,
-								'name' => $fname.' '.$lname,
-								'type' => 'to'
-							)
-						),
-						'headers' => array(
-							'Reply-To' => 'noreply@bumpp.azurewebsites.net'
-						),
-						'important' => false,
-						'track_opens' => true,
-						
-					);
 					
-					$async = false;
-					$ip_pool = 'Main Pool';
-					$send_at = '1999-01-01 12:00:00';
-					$result = $mandrill->messages->send($message, $async, $ip_pool, null);
-					//print_r($result);
-					echo '<h1>Check your email!</h1>';
-					echo '<h2 class="subheader">Please verify your account by clicking on the verification link we sent you</h2>';
+					header('Location: http://bumphelper.cloudapp.net/sendEmail.php');
+					session_destroy();
+					exit();
 					
-					} catch(Mandrill_Error $e) {
-						echo '<h1>Uh oh!</h1>';
-						echo '<h2 class="subheader">Something went wrong with the email</h2>';
-						echo "Manrill error: ".get_class($e).' - '.$e->getMessage();
-						throw $e;
-					}
 					//Send Verification Email
 					/*$to = $email;
 					$subject = 'Welcome to bumpp, '.$fname.'!';
@@ -192,7 +149,7 @@
 				} else {
 				   echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
 				}
-				//session_destroy();
+				session_destroy();
 				?>
 			</div>
 		</section>
