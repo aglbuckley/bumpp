@@ -119,21 +119,7 @@
 						}
 					}
 					
-					$postdata = http_build_query(
-						array('first_name' => $fname, 'last_name' => $lname, 'email' => $email, 'verification' => $verification)
-					);
-
-					$opts = array('http' =>
-						array(
-							'method'  => 'POST',
-							'header'  => 'Content-type: application/x-www-form-urlencoded',
-							'content' => $postdata
-						)
-					);
-
-					$context  = stream_context_create($opts);
-
-					$result = file_get_contents('http://bumpphelper.cloudapp.net/sendEmail.php', false, $context);
+					header('Location: http://bumpphelper.cloudapp.net/sendEmail.php?email='.$email.'&first_name='.$fname.'&last_name='.$lname);
 					/*$req = new HttpRequest('http://bumpphelper.cloudapp.net/sendEmail.php', HttpRequest::METH_POST);
 					$req->addPostFields(array('first_name' => $fname, 'last_name' => $lname, 'email' => $email, 'verification' => $verification));
 					try {
