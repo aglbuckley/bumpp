@@ -119,9 +119,19 @@
 						}
 					}
 					
-					header('Location: http://bumphelper.cloudapp.net/sendEmail.php');
-					session_destroy();
-					exit();
+					
+					$req = new HttpRequest('http://bumpphelper.cloudapp.net/sendEmail.php', HttpRequest::METH_POST);
+					$req->addPostFields(array('first_name' => $fname, 'last_name' => $lname, 'email' => $email, 'verification' => $verification));
+					try {
+						echo $req->send()->getBody();
+					} catch (HttpException $ex) {
+						echo $ex;
+					}
+
+					
+					//header('Location: http://bumphelper.cloudapp.net/sendEmail.php');
+					//session_destroy();
+					//exit();
 					
 					//Send Verification Email
 					/*$to = $email;
