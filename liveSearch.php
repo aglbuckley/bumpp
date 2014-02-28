@@ -47,6 +47,7 @@ try{
 			
 			$stmt->close();
 		}
+		echo $response;
 	}
 
 	$mysqli->close();
