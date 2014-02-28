@@ -12,8 +12,6 @@
 	$fBlog_id = -1;				
 	$mysqli = new mysqli("eu-cdbr-azure-north-b.cloudapp.net", "b4076f65ff0228", "50c893e0", "bumppAdwhDiig5M6");
 
-	echo 'Friend: '.$_GET['username'];
-
 	if ($mysqli->connect_errno) {
 		echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 	}
@@ -174,7 +172,11 @@
 						}
 						echo $_SESSION['friend_blog_name'];
 					?></h1>
-					<small><a href="javascript:blogNameUpdate()" id="renameBlog">Rename Blog</a></small>
+					<?php
+						if($_SESSION['friend_user_id']==$_SESSION['user_id']){
+							echo '<small><a href="javascript:blogNameUpdate()" id="renameBlog">Rename Blog</a></small>';
+						}
+					?>
 				</div>
 				<h3 class="subheader"> It's really easy to customize your very own blog!</h3>
 				<hr>
