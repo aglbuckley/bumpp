@@ -11,30 +11,34 @@ try{
 		echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 		throw new Exception('Failed to connect');
 	}
-	echo 'hello';
 	if($stmt = $mysqli->prepare("SELECT first_name, last_name FROM user WHERE first_name LIKE ? OR last_name LIKE ?"))
 	{
-		echo 'hello1';
 		if(!$stmt->bind_param("ss", $input.'%', $input.'%'))
-		{
+		{	
+			echo 'hello1';
 			$response = 'error';
 		} else {
-			
+			echo 'hello2';
 			if($stmt->execute())
 			{
+				echo 'hello3';
 				$fname = "";
 				$lname = "";
 				if(!$stmt->bind_result($fname, $lname))
 				{
+					echol'hello4';
 					$reponse = 'error';
 				}
 			} else {
+				echo 'hello5';
 				$response = 'error';
 			}
 			
+			echo 'hello6';
 			$stmt->store_result();
 			if(mysqli_stmt_num_rows($stmt)<1)
 			{
+				echo 'hello7';
 				$response = '<li><a href="#">Nada</a></li>';
 			}
 			
