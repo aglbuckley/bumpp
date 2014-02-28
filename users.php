@@ -12,6 +12,8 @@
 	$fBlog_id = -1;				
 	$mysqli = new mysqli("eu-cdbr-azure-north-b.cloudapp.net", "b4076f65ff0228", "50c893e0", "bumppAdwhDiig5M6");
 
+	echo 'Friend: '.$_GET['username'];
+
 	if ($mysqli->connect_errno) {
 		echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 	}
@@ -58,6 +60,7 @@
 	$_SESSION['friend_user_id'] = $friendUserID;
 	$_SESSION['friend_blog_name'] = stripslashes($fBlogName);
 	$_SESSION['friend_blog_id'] = $fBlog_id;
+	$mysqli->close();
 ?>
 <!DOCTYPE html>
 <html>
