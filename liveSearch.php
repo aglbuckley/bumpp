@@ -11,36 +11,29 @@ try{
 		echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 		throw new Exception('Failed to connect');
 	}
-	if($stmt = $mysqli->prepare("SELECT first_name, last_name FROM user WHERE first_name LIKE CONCAT('%', ?) OR last_name LIKE CONCAT('%', ?)"))
+	if($stmt = $mysqli->prepare("SELECT first_name, last_name FROM user WHERE first_name LIKE CONCAT('%', ?, '%') OR last_name LIKE CONCAT('%', ?, '%')"))
 	{
 		if(!$stmt->bind_param("ss", $input, $input))
 		{	
-			echo 'hello1';
 			$response = 'error';
 			exit();
 		} else {
-			echo 'hello2';
 			if($stmt->execute())
 			{
-				echo 'hello3';
 				$fname = "";
 				$lname = "";
 				if(!$stmt->bind_result($fname, $lname))
 				{
-					echo 'hello4';
 					$reponse = 'error';
 					exit();
 				}
 			} else {
-				echo 'hello5';
 				$response = 'error';
 			}
 			
-			echo 'hello6';
 			$stmt->store_result();
 			if(mysqli_stmt_num_rows($stmt)<1)
 			{
-				echo 'hello7';
 				$response = '<li><a href="#">Nada</a></li>';
 				exit();
 			}
