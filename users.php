@@ -170,6 +170,7 @@
 							}
 							$_SESSION['friend_blog_name'] = stripslashes($fBlogName);
 							$_SESSION['friend_blog_id'] = $fBlog_id;
+							$mysqli->close();
 						}
 						echo $_SESSION['friend_blog_name'];
 					?></h1>
