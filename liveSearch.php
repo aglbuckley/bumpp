@@ -11,9 +11,8 @@ try{
 		echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 		throw new Exception('Failed to connect');
 	}
-	if($stmt = $mysqli->prepare("SELECT first_name, last_name FROM user WHERE first_name LIKE ? OR last_name LIKE ?"))
+	if($stmt = $mysqli->prepare("SELECT first_name, last_name FROM user WHERE first_name LIKE CONCAT('%', ?) OR last_name LIKE CONCAT('%', ?)"))
 	{
-		$input = $input."%";
 		if(!$stmt->bind_param("ss", $input, $input))
 		{	
 			echo 'hello1';
@@ -53,6 +52,8 @@ try{
 			$stmt->close();
 		}
 		echo $response;
+	} else {
+		echo 'prepare error';
 	}
 
 	$mysqli->close();
