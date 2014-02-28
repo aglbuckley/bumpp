@@ -19,7 +19,7 @@
 	}
 
 	/* create a prepared statement */
-	if($stmt = $mysqli->prepare("SELECT user_id FROM users WHERE username=?"))
+	if($stmt = $mysqli->prepare("SELECT user_id FROM user WHERE username=?"))
 	{
 		if(!$stmt->bind_param("s", $_GET['username']))
 		{
@@ -130,7 +130,7 @@
 							}
 
 							/* create a prepared statement */
-							if($stmt = $mysqli->prepare("SELECT user_id FROM users WHERE username=?"))
+							if($stmt = $mysqli->prepare("SELECT user_id FROM user WHERE username=?"))
 							{
 								if(!$stmt->bind_param("s", $_GET['username']))
 								{
