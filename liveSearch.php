@@ -29,8 +29,8 @@ try{
 				{
 					echo 'hello4';
 					$reponse = 'error';
+					exit();
 				}
-				exit();
 			} else {
 				echo 'hello5';
 				$response = 'error';
