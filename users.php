@@ -297,6 +297,7 @@
 					} catch(Exception $e) {
 						echo '<h1>Uh oh!</h1>';
 						echo '<h3 class="subheader">Something went wrong. Please reload the page.</h3>';
+						echo $e;
 						$mysqli->close();
 						//exit();
 					}
