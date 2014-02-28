@@ -13,7 +13,8 @@ try{
 	}
 	if($stmt = $mysqli->prepare("SELECT first_name, last_name FROM user WHERE first_name LIKE ? OR last_name LIKE ?"))
 	{
-		if(!$stmt->bind_param("ss", $input.'%', $input.'%'))
+		$input = $input."%";
+		if(!$stmt->bind_param("ss", $input, $input))
 		{	
 			echo 'hello1';
 			$response = 'error';
