@@ -256,7 +256,7 @@
 		<script src="js/vendor/jquery.js"></script>
     	<script src="js/foundation.min.js"></script>
     	<script src="js/foundation/foundation.reveal.js"></script>
-    	<script src="js/foundation.dropdown.js"></script>
+    	<script src="js/foundation/foundation.dropdown.js"></script>
     	<script>
     	//Code modified from w3 schools
 		function search(str)
