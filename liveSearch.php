@@ -11,7 +11,7 @@ try{
 		echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 		throw new Exception('Failed to connect');
 	}
-	if($stmt = $mysqli->prepare("SELECT first_name, last_name FROM user WHERE first_name LIKE CONCAT('%', ?, '%') OR last_name LIKE CONCAT('%', ?, '%')"))
+	if($stmt = $mysqli->prepare("SELECT first_name, last_name, username FROM user WHERE first_name LIKE CONCAT('%', ?, '%') OR last_name LIKE CONCAT('%', ?, '%')"))
 	{
 		if(!$stmt->bind_param("ss", $input, $input))
 		{	
@@ -22,7 +22,8 @@ try{
 			{
 				$fname = "";
 				$lname = "";
-				if(!$stmt->bind_result($fname, $lname))
+				$username = "";
+				if(!$stmt->bind_result($fname, $lname, $username))
 				{
 					$reponse = 'error';
 					exit();
@@ -41,7 +42,7 @@ try{
 			$i=0;
 			while($stmt->fetch())
 			{
-				$response = $response.'<li><a href="#">'.$fname.' '.$lname.'</a></li>';
+				$response = $response.'<li><a href="./users/'.$username.'">'.$fname.' '.$lname.'</a></li>';
 				$i++;
 			}
 			
