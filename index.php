@@ -265,7 +265,7 @@
 			{
 				document.getElementById("drop1").innerHTML="";
 				$(document).foundation('dropdown', {
-					  activeClass: 'closed'
+					  activeClass: 'close'
 					});
 				return;
 			}
