@@ -11,9 +11,10 @@ try{
 		echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 		throw new Exception('Failed to connect');
 	}
-	
+	echo 'hello';
 	if($stmt = $mysqli->prepare("SELECT first_name, last_name FROM user WHERE first_name LIKE ? OR last_name LIKE ?"))
 	{
+		echo 'hello1';
 		if(!$stmt->bind_param("ss", $input.'%', $input.'%'))
 		{
 			$response = 'error';
