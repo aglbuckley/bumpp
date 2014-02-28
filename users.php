@@ -55,6 +55,7 @@
 			$stmt->close();
 		}
 	}
+	$_SESSION['friend_user_id'] = $friendUserID;
 	$_SESSION['friend_blog_name'] = stripslashes($fBlogName);
 	$_SESSION['friend_blog_id'] = $fBlog_id;
 ?>
@@ -115,7 +116,7 @@
 				<div id="blogHeaderDiv">
 					<hr>
 					<h1 id="blogHeader"><?php
-						if(!isset($fBlogName) || $fBlogName==''){
+						if(!isset($_SESSION['friend_blog_name']) || $_SESSION['friend_blog_name']==''){
 							$friendUserID = -1;
 							$fBlogName = "";	
 							$fBlog_id = -1;				
@@ -167,7 +168,7 @@
 							$_SESSION['friend_blog_name'] = stripslashes($fBlogName);
 							$_SESSION['friend_blog_id'] = $fBlog_id;
 						}
-						echo $fBlogName;
+						echo $_SESSION['friend_blog_name'];
 					?></h1>
 					<small><a href="javascript:blogNameUpdate()" id="renameBlog">Rename Blog</a></small>
 				</div>
@@ -178,7 +179,7 @@
 				
 				<ul class="example-orbit" data-orbit> 
 					<li> 
-						<img src="images/london1.jpg" alt="slide 1" /> 
+						<img src="/images/london1.jpg" alt="slide 1" /> 
 						<div class="orbit-caption"> 
 							London. 
 						</div> 
@@ -213,18 +214,18 @@
 							throw new Exception('Failed to connect');
 						}
 					
-						if(!isset($fBlog_id) || empty($fBlog_id) || $fBlog_id <0)
+						if(!isset($_SESSION['friend_blog_id']) || empty($_SESSION['friend_blog_id']) || $_SESSION['friend_blog_id'] <0)
 						{
-							$blog_id = -1;
+							$fBlog_id = -1;
 							if ($stmt = $mysqli->prepare("SELECT blog_id FROM blog WHERE user_id=?")) {
-								if(!$stmt->bind_param("s", $_SESSION['user_id']))
+								if(!$stmt->bind_param("s", $_SESSION['friend_user_id']))
 								{
 									echo '<h1>Error on select bind</h1>';
 									exit();
 
 								} else {
 									if($stmt->execute()){
-										$stmt->bind_result($blog_id);
+										$stmt->bind_result($fBlog_id);
 
 									} else {
 										echo '<h1>Error on execute</h1>';
@@ -233,7 +234,7 @@
 
 									$stmt->fetch();
 		
-									$fBlog_id = $blog_id;
+									$_SESSION['friend_blog_id'] = $gBlog_id;
 
 									$stmt->close();
 								}
@@ -246,7 +247,7 @@
 							$postContent = "";
 							$timestamp = 0;
 
-							if(!$stmt->bind_param("i", $fBlog_id))
+							if(!$stmt->bind_param("i", $_SESSION['friend_blog_id']))
 							{
 								echo '<h1>Error on select bind</h1>';
 								exit();
