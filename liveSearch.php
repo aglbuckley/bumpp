@@ -17,6 +17,7 @@ try{
 		{	
 			echo 'hello1';
 			$response = 'error';
+			exit();
 		} else {
 			echo 'hello2';
 			if($stmt->execute())
@@ -26,9 +27,10 @@ try{
 				$lname = "";
 				if(!$stmt->bind_result($fname, $lname))
 				{
-					echol'hello4';
+					echo 'hello4';
 					$reponse = 'error';
 				}
+				exit();
 			} else {
 				echo 'hello5';
 				$response = 'error';
@@ -40,6 +42,7 @@ try{
 			{
 				echo 'hello7';
 				$response = '<li><a href="#">Nada</a></li>';
+				exit();
 			}
 			
 			$i=0;
