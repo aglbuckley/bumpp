@@ -83,7 +83,7 @@
 								echo '<h1>Congratulations</h1>';
 								echo '<h2 class="subheader">You may now login</h2>';
 								$location = 'users/'.$username;
-								if(!mkdir($location, 0700))
+								if(!mkdir($location, 0700, true))
 								{
 									die('failed to create');
 								}
