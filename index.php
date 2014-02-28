@@ -217,15 +217,19 @@
 								{
 									echo '<h3 class="subheader">You have no blog entries yet. Click the new story button above to make your first one!</h3>';
 								}
-							
+								
+								$i = 0;
 								while($stmt->fetch())
 								{
 									$timestamp = strtotime($timestamp);
 									$timestamp = date("l d F Y \a\\t h:i a", $timestamp);
 									echo '<h3 class="subheader">'.$postName.'</h3>';
 									echo '<h5>Posted: '.$timestamp.'</h5><br>';
-									echo stripslashes(str_replace("\\r\\n",'',$postContent));
-									echo '<hr><p><a href="#">Comment (0)</a>&nbsp;&nbsp; | &nbsp;&nbsp;<a href="#">bumpp up</a>&nbsp;&nbsp; | &nbsp;&nbsp;<a href="#">bumpp down</a></p><hr><hr>';
+									echo stripslashes(str_replace("\\r\\n",'',$postContent))."\n";
+									echo '<hr>'."\n".'<div id="postActionsDiv'.$i.'">'."\n";
+									echo "\t".'<p><a href="javascript:commentReveal('.$i.')">Comment (0)</a>&nbsp;&nbsp; | &nbsp;&nbsp;<a href="#">bumpp up</a>&nbsp;&nbsp; | &nbsp;&nbsp;<a href="#">bumpp down</a></p>';
+									echo '</div>'."\n".'<hr><hr>';
+									$i++;
 								}
 			
 								$stmt->close();
@@ -257,6 +261,12 @@
     	  	$('#welcomeModal').foundation('reveal', 'open');
     	  
 			});
+			
+			function commentReveal(index)
+			{
+				var postActionsDiv = document.getElementById('postActionsDiv'+index);
+				postActionsDiv.parentNode.removeChild(postActionsDiv);
+			}
 			
 			function blogNameUpdate()
 			{

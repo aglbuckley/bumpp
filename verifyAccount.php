@@ -39,6 +39,7 @@
 				if(isset($_GET['email']) && isset($_GET['verification']) && !empty($_GET['email']) && !empty($_GET['verification']))
 				{
 					$user_id = -1;
+					$username = "";
 					$email = $_GET['email'];
 					$verification = $_GET['verification'];
 					//$mysqli = new mysqli("localhost", "root", "root", "main_test_db");
@@ -49,7 +50,7 @@
 						exit();
 					}
 					
-					$stmt = $mysqli->prepare("SELECT user_id FROM user WHERE email = ? AND verification = ?");
+					$stmt = $mysqli->prepare("SELECT user_id, username FROM user WHERE email = ? AND verification = ?");
 					//echo $mysqli->real_escape_string($email).' '.$mysqli->real_escape_string($verification);
 					
 					if(!$stmt->bind_param("ss", $mysqli->real_escape_string($email), $mysqli->real_escape_string($verification)))
@@ -60,7 +61,7 @@
 					
 					if($stmt->execute())
 					{
-						if(!$stmt->bind_result($user_id))
+						if(!$stmt->bind_result($user_id, $username))
 						{
 							echo "Error binding";
 							exit();
@@ -81,6 +82,11 @@
 							{
 								echo '<h1>Congratulations</h1>';
 								echo '<h2 class="subheader">You may now login</h2>';
+								$location = 'users/'.$username;
+								if(!mkdir($location, 0700))
+								{
+									die('failed to create');
+								}
 								exit();
 							} else {
 								echo '<h1>We could not verify your account. Sorry.</h1>';

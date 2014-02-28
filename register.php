@@ -73,9 +73,11 @@
 				$verification = md5(rand(0,1000));
 				$verified = 0;
 
-				$stmt = $mysqli->prepare("INSERT INTO user (first_name, last_name, email, password, salt, verification, verified) VALUES (?, ?, ?, ?, ?, ?, ?)");
+				$generatedUsername = strstr($email, '@', true).rand(0,100);
+
+				$stmt = $mysqli->prepare("INSERT INTO user (first_name, last_name, email, username, password, salt, verification, verified) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 				
-				if(!$stmt->bind_param("ssssssi", $mysqli->real_escape_string($fname), $mysqli->real_escape_string($lname), $mysqli->real_escape_string($email), $hash, $salt, $mysqli->real_escape_string($verification), $verified))
+				if(!$stmt->bind_param("sssssssi", $mysqli->real_escape_string($fname), $mysqli->real_escape_string($lname), $mysqli->real_escape_string($email), $generatedUsername, $hash, $salt, $mysqli->real_escape_string($verification), $verified))
 				{
 					echo "Binding failed: (".$stmt->errno.") ".$stmt->error;
 					exit();
