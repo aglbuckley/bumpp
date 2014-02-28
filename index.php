@@ -47,7 +47,10 @@
 					<li class="has-form"> 
 						<div class="row collapse"> 
 							<div class="large-8 small-9 columns"> 
-								<input type="text" placeholder="Search for Friends"> 
+								<input type="text" data-dropdown="drop1" placeholder="Search for Friends" onkeyup="search(this.value)">
+								<ul id="drop1" class="f-dropdown" data-dropdown-content>
+								  
+								</ul>
 							</div> 
 							<div class="large-4 small-3 columns"> 
 								<a href="#" class="button">Search</a> 
@@ -253,6 +256,36 @@
 		<script src="js/vendor/jquery.js"></script>
     	<script src="js/foundation.min.js"></script>
     	<script src="js/foundation/foundation.reveal.js"></script>
+    	<script src="js/foundation.dropdown.js"></script>
+    	<script>
+    	//Code modified from w3 schools
+		function search(str)
+		{
+			if (str.length==0)
+			{
+				document.getElementById("drop1").innerHTML="";
+				$(document).foundation('dropdown', {
+					  activeClass: 'closed'
+					});
+				return;
+			}
+			if (window.XMLHttpRequest){
+				xmlhttp=new XMLHttpRequest();
+			}
+
+			xmlhttp.onreadystatechange=function()
+			{
+				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+					document.getElementById("drop1").innerHTML=xmlhttp.responseText;
+					$(document).foundation('dropdown', {
+					  activeClass: 'open'
+					});
+				}
+			}
+			xmlhttp.open("GET","liveSearch.php?input="+str,true);
+			xmlhttp.send();
+		}
+		</script>
     	<script>
 			$(document).foundation();
 			
