@@ -2,7 +2,7 @@
 	session_start();
 	if(!isset($_SESSION['email']) || !isset($_SESSION['user_id']) || !isset($_SESSION['fname']))
 	{
-		header('Location: login.html');
+		header('Location: ./login.html');
 		exit();
 	}
 	
@@ -82,7 +82,7 @@
 					<li class="has-dropdown"> 
 						<a href="#">Settings</a> 
 						<ul class="dropdown"> 
-							<li><a href="logout.php">Logout</a></li> 
+							<li><a href="./logout.php">Logout</a></li> 
 						</ul> 
 					</li>
 					<li class="divider"></li>
