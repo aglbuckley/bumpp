@@ -59,7 +59,7 @@
 		</nav>
 		<ul id="drop1" class="f-dropdown" data-dropdown-content>
 								  
-								</ul>
+		</ul>
 	
 		 <?php 
 		 	session_start();
