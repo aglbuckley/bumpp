@@ -119,7 +119,7 @@
 					<a class="th radius" href="#">
 						<?php
 							include('retrieveProfilePic.php');
-							echo '<img src="'.$_SESSION['profile_image_location'].'">'; 
+							echo '<img src="'.$_SESSION['profile_image_location'].'" style="width: 50%; height: 50%;">'; 
 						?>
 					</a>
 					<h1 id="blogHeader"><?php
