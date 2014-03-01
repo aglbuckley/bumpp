@@ -115,6 +115,7 @@
 									$stmt->close();
 								}
 							}
+							$mysqli->close();
 							$_SESSION['blog_name'] = stripslashes($blogName);
 							$_SESSION['blog_id'] = $blog_id;
 						}

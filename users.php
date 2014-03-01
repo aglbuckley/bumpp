@@ -116,6 +116,12 @@
 			<div class="row">
 				<div id="blogHeaderDiv">
 					<hr>
+					<a class="th radius" href="#">
+						<?php
+							include('retrieveProfilePic.php');
+							echo '<img src="'.$_SESSION['profile_image_location'].'">'; 
+						?>
+					</a>
 					<h1 id="blogHeader"><?php
 						if(!isset($_SESSION['friend_blog_name']) || $_SESSION['friend_blog_name']==''){
 							$friendUserID = -1;
