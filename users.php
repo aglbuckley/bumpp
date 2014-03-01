@@ -184,6 +184,38 @@
 						}
 					?>
 				</div>
+				
+				<div id=infoTable>
+					<table align="right">
+						<thead>
+						  <tr>
+						    <th width="200">Information</th>
+						    <th></th>
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr>
+						    <td>Gender</td>
+						    <td>Male</td>
+						  </tr>
+						  <tr>
+						    <td>Date of Birth</td>
+						    <td>15/07/1993</td>
+						  </tr>
+						  <tr>
+						    <td>Lives in:</td>
+						    <td>London, UK</td>
+						  </tr>
+						  <tr>
+						    <td>Phone #:</td>
+						    <td>5551234567</td>
+						  </tr>
+						  
+						</tbody>
+					      </table>
+				</div>
+				
+				
 				<h3 class="subheader"> It's really easy to customize your very own blog!</h3>
 				<hr>
 				
