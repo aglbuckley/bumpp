@@ -48,18 +48,18 @@
 						<div class="row collapse"> 
 							<div class="large-8 small-9 columns"> 
 								<input type="text" data-dropdown="drop1" placeholder="Search for Friends" onkeyup="search(this.value)">
-								<ul id="drop1" class="f-dropdown" data-dropdown-content>
-								  
-								</ul>
 							</div> 
 							<div class="large-4 small-3 columns"> 
 								<a href="#" class="button">Search</a> 
 							</div> 
 						</div> 
 					</li>
-				</ul> 
+				</ul>
 			</section> 
 		</nav>
+		<ul id="drop1" class="f-dropdown" data-dropdown-content>
+								  
+								</ul>
 	
 		 <?php 
 		 	session_start();
