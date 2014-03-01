@@ -123,6 +123,74 @@
 					?></h1>
 					<small><a href="javascript:blogNameUpdate()" id="renameBlog">Rename Blog</a></small>
 				</div>
+				
+				<?php
+					if(!isset($_SESSION['info_id'])){
+						$info_id = -1;
+						$dob = 0;
+						$currentLoc = '';
+						$phoneNumb = '';
+						$mysqli = new mysqli("eu-cdbr-azure-north-b.cloudapp.net", "b4076f65ff0228", "50c893e0", "bumppAdwhDiig5M6");
+	
+						if ($mysqli->connect_errno) {
+							echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+						}
+						
+						if ($stmt = $mysqli->prepare("SELECT dob, currentLoc, phoneNumb FROM userinformation WHERE user_id=?")) {
+						
+							if(!$stmt->bind_param("s", $_SESSION['user_id']))
+							{
+								echo '<h1>Error on select bind</h1>';
+								exit();
+		
+							} else {
+								if($stmt->execute()){
+									$stmt->bind_result($dob, $currentLoc, $phoneNumb);
+								} else {
+									exit();
+								}
+								$stmt->fetch();
+								$stmt->close();
+							}
+						}
+						$mysqli->close();
+						$_SESSION['dob'] = $dob;
+						$_SESSION['currentLoc'] = $currentLoc;
+						$_SESSION['phoneNumb'] = $phoneNumb;
+					}
+							
+				?>
+				
+				<a href="#" data-dropdown="drop" class="tiny button dropdown" align="right">Information</a><br>
+				<ul id="drop" data-dropdown-content class="f-dropdown">
+					<li>
+						<div id=infoTable>
+							<table>
+								<thead>
+								</thead>
+								<tbody>
+								 <tr>
+								   <td>Date of Birth</td>
+								   <td><?php echo $_SESSION['dob'];  ?></td>
+								 </tr>
+								 <tr>
+								   <td>Lives in:</td>
+								     <td><?php echo $_SESSION['currentLoc'];  ?></td>
+								 </tr>
+								 <tr>
+								   <td>Phone #:</td>
+								     <td><?php echo $_SESSION['phoneNumb'];  ?></td>
+								 </tr>
+								</tbody>
+							</table>
+						</div>
+					</li>
+					 <a href="javascript:editInformation()" id="editInfo">Edit Information</a>
+				  </ul>
+				
+				
+
+				
 				<h3 class="subheader"> It's really easy to customize your very own blog!</h3>
 				<hr>
 				
@@ -342,6 +410,10 @@
 
 				var blogRenameButton = document.getElementById('renameBlog');
 				blogRenameButton.parentNode.removeChild(blogRenameButton);
+			}
+			
+			function editInformation() {
+				
 			}
    		</script> 
 	</body>
