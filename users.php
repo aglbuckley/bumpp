@@ -116,10 +116,10 @@
 			<div class="row">
 				<div id="blogHeaderDiv">
 					<hr>
-					<a class="th radius" href="#">
+					<a class="th radius" href="#" style="width: 50%; height: 50%;">
 						<?php
 							include('retrieveProfilePic.php');
-							echo '<img src="'.$_SESSION['profile_image_location'].'" style="width: 50%; height: 50%;">'; 
+							echo '<img src="'.$_SESSION['profile_image_location'].'">'; 
 						?>
 					</a>
 					<h1 id="blogHeader"><?php
