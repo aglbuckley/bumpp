@@ -7,7 +7,7 @@
 	}
 	
 	if($_SESSION['username'] == $_GET['username']){
-		header('Location: '.dirname($_SERVER['PHP_SELF']).'/');
+		header('Location: /');
 	}
 	
 	//code to set friend blog info of the current page you are visiting
@@ -77,8 +77,8 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<?php
-			echo '<link rel="stylesheet" href="'.dirname($_SERVER['PHP_SELF']).'/css/foundation.css" />
-    			<script src="'.dirname($_SERVER['PHP_SELF']).'/js/vendor/modernizr.js"></script>';
+			echo '<link rel="stylesheet" href="/css/foundation.css" />
+    			<script src="/js/vendor/modernizr.js"></script>';
     	?>
 	</head>
 	<body>
@@ -293,9 +293,9 @@
 			</div>
 		</section>
 		<?php
-			echo '<script src="'.dirname($_SERVER['PHP_SELF']).'/js/vendor/jquery.js"></script>
-    			<script src="'.dirname($_SERVER['PHP_SELF']).'/js/foundation.min.js"></script>
-    			<script src="'.dirname($_SERVER['PHP_SELF']).'/js/foundation/foundation.reveal.js"></script>';
+			echo '<script src="/js/vendor/jquery.js"></script>
+    			<script src="/js/foundation.min.js"></script>
+    			<script src="/js/foundation/foundation.reveal.js"></script>';
 		?>
     	<script>
 			$(document).foundation();
