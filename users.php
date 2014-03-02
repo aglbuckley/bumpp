@@ -6,9 +6,17 @@
 		exit();
 	}
 	
+	if($_SESSION['username'] == $_GET['username']){
+		header('Location: '.dirname($_SERVER['PHP_SELF']).'/');
+	}
+	
 	//code to set friend blog info of the current page you are visiting
 	$friendUserID = -1;
-	$fBlogName = "";	
+	$fBlogName = "";
+	$firstName = "";
+	$lastName = "";
+	$friendshipAccepted = 0;
+	$friendshipID = -1;
 	$fBlog_id = -1;				
 	$mysqli = new mysqli("eu-cdbr-azure-north-b.cloudapp.net", "b4076f65ff0228", "50c893e0", "bumppAdwhDiig5M6");
 
@@ -17,7 +25,7 @@
 	}
 
 	/* create a prepared statement */
-	if($stmt = $mysqli->prepare("SELECT user_id FROM user WHERE username=?"))
+	if($stmt = $mysqli->prepare("SELECT user_id, first_name, last_name FROM user WHERE username=?"))
 	{
 		if(!$stmt->bind_param("s", $_GET['username']))
 		{
@@ -25,7 +33,7 @@
 			exit();
 		} else {
 			if($stmt->execute()){
-				$stmt->bind_result($friendUserID);
+				$stmt->bind_result($friendUserID, $firstName, $lastName);
 			} else {
 				echo '<h1>Error on execute</h1>';
 				exit();
@@ -34,16 +42,16 @@
 			$stmt->close();
 		}
 	}
-	if ($stmt = $mysqli->prepare("SELECT name, blog_id FROM blog WHERE user_id=?")) {
+	if ($stmt = $mysqli->prepare("SELECT blog.name, blog.blog_id, friendship.friendship_id, friendship.accepted FROM blog friendship WHERE (friendship.friender_id = ? AND friendship.friendee_id = ?) OR (friendship.friender_id = ? AND friendship.friendee_id = ?) AND blog.user_id=?")) {
 
-		if(!$stmt->bind_param("i", $friendUserID))
+		if(!$stmt->bind_param("iiiiii", $friendUserID, $_SESSION['user_id'], $_SESSION['user_id'], $friendUserID, $friendUserID))
 		{
 			echo '<h1>Error on select bind</h1>';
 			exit();
 
 		} else {
 			if($stmt->execute()){
-				$stmt->bind_result($fBlogName, $fBlog_id);
+				$stmt->bind_result($fBlogName, $fBlog_id, $friendshipID, $friendshipAccepted);
 
 			} else {
 				echo '<h1>Error on execute</h1>';
@@ -56,6 +64,10 @@
 		}
 	}
 	$_SESSION['friend_user_id'] = $friendUserID;
+	$_SESSION['friendship_accepted'] = $friendshipAccepted;
+	$_SESSION['friendship_id'] = $friendshipID;
+	$_SESSION['friend_first_name'] = $firstName;
+	$_SESSION['friend_last_name'] = $lastName;
 	$_SESSION['friend_blog_name'] = stripslashes($fBlogName);
 	$_SESSION['friend_blog_id'] = $fBlog_id;
 	$mysqli->close();
@@ -64,53 +76,15 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="/css/foundation.css" />
-    	<script src="/js/vendor/modernizr.js"></script>
+		<?php
+			echo '<link rel="stylesheet" href="'.dirname($_SERVER['PHP_SELF']).'/css/foundation.css" />
+    			<script src="'.dirname($_SERVER['PHP_SELF']).'/js/vendor/modernizr.js"></script>';
+    	?>
 	</head>
 	<body>
-		<nav class="top-bar" data-topbar> 
-			<ul class="title-area"> 
-				<li class="name"> 
-					<h1><a href="/">bumpp</a></h1> 
-				</li> 
-				<li class="toggle-topbar menu-icon"><a href="#">Menu</a></li> 
-			</ul> 
-		
-			<section class="top-bar-section"> 
-				<!-- Right Nav Section --> 
-				<ul class="right"> 
-					<li class="has-dropdown"> 
-						<a href="#">Settings</a> 
-						<ul class="dropdown"> 
-							<li><a href="/logout.php">Logout</a></li> 
-						</ul> 
-					</li>
-					<li class="divider"></li>
-					<li id="newPostNav" class="has-form"> 
-						<a href="newPost.php" class="button">New Story</a> 
-					</li>
-				</ul>
-			
-				<!-- Left Nav Section --> 
-				<ul class="left"> 
-					<li class="divider"></li>
-					<?php
-						echo '<li><a href="#">'.$_SESSION['fname'].'</a></li>';
-					?>
-					<li class="divider"></li>
-					<li class="has-form"> 
-						<div class="row collapse"> 
-							<div class="large-8 small-9 columns"> 
-								<input type="text" placeholder="Search for Friends"> 
-							</div> 
-							<div class="large-4 small-3 columns"> 
-								<a href="#" class="button">Search</a> 
-							</div> 
-						</div> 
-					</li>
-				</ul> 
-			</section> 
-		</nav>
+		<?php
+			include('topBar.php');
+		?>
 
 		<section role="main">
 			<div class="row">
@@ -119,7 +93,7 @@
 					<a class="th" href="#" style="display:inline-block;">
 						<?php
 							include('retrieveProfilePic.php');
-							echo '<img src="'.$_SESSION['profile_image_location'].'" style="width: 50%;">'; 
+							echo '<img src="'.$_SESSION['profile_image_location'].'" style="width: 25%;">'; 
 						?>
 					</a>
 					<h1 id="blogHeader"><?php
@@ -185,37 +159,6 @@
 					?>
 				</div>
 				
-				<div id=infoTable>
-					<table align="right">
-						<thead>
-						  <tr>
-						    <th width="200">Information</th>
-						    <th></th>
-						  </tr>
-						</thead>
-						<tbody>
-						  <tr>
-						    <td>Gender</td>
-						    <td>Male</td>
-						  </tr>
-						  <tr>
-						    <td>Date of Birth</td>
-						    <td>15/07/1993</td>
-						  </tr>
-						  <tr>
-						    <td>Lives in:</td>
-						    <td>London, UK</td>
-						  </tr>
-						  <tr>
-						    <td>Phone #:</td>
-						    <td>5551234567</td>
-						  </tr>
-						  
-						</tbody>
-					      </table>
-				</div>
-				
-				
 				<h3 class="subheader"> It's really easy to customize your very own blog!</h3>
 				<hr>
 				
@@ -223,7 +166,9 @@
 				
 				<ul class="example-orbit" data-orbit> 
 					<li> 
-						<img src="/images/london1.jpg" alt="slide 1" /> 
+						<?php 
+							echo '<img src="'.dirname($_SERVER['PHP_SELF']).'/images/london1.jpg" alt="slide 1" />'
+						?>
 						<div class="orbit-caption"> 
 							London. 
 						</div> 
@@ -347,18 +292,64 @@
 				
 			</div>
 		</section>
-		
-		<script src="/js/vendor/jquery.js"></script>
-    	<script src="/js/foundation.min.js"></script>
-    	<script src="/js/foundation/foundation.reveal.js"></script>
+		<?php
+			echo '<script src="'.dirname($_SERVER['PHP_SELF']).'/js/vendor/jquery.js"></script>
+    			<script src="'.dirname($_SERVER['PHP_SELF']).'/js/foundation.min.js"></script>
+    			<script src="'.dirname($_SERVER['PHP_SELF']).'/js/foundation/foundation.reveal.js"></script>';
+		?>
     	<script>
 			$(document).foundation();
 			
     	  	$(document).ready(function() {
     	  
-    	  	$('#welcomeModal').foundation('reveal', 'open');
+    	  		$('#welcomeModal').foundation('reveal', 'open');
+    	  		
+    	  		
+    	  		setInterval(
+    	  			function(){
+    	  				//Code modified from w3 schools
+
+						if (window.XMLHttpRequest){
+							xmlhttp=new XMLHttpRequest();
+						}
+
+						xmlhttp.onreadystatechange=function()
+						{
+							if (xmlhttp.readyState==4 && xmlhttp.status==200){
+								document.getElementById("friendRequests").innerHTML=xmlhttp.responseText;
+							}
+						}
+						xmlhttp.open("GET","checkFriendRequests.php",true);
+						xmlhttp.send();
+    	  			},3000);
     	  
 			});
+			
+			function sendFriendRequest()
+			{
+				//Code modified from w3 schools
+
+				var reqButton = document.getElementById("friendRequestButton");
+
+				if (window.XMLHttpRequest){
+					xmlhttp=new XMLHttpRequest();
+				}
+
+				xmlhttp.onreadystatechange=function()
+				{
+					if (xmlhttp.readyState==4 && xmlhttp.status==200){
+						document.getElementById("friendRequestButton").innerHTML=xmlhttp.responseText;
+						if(xmlhttp.responseText != "Send Friend Request")
+						{
+							document.getElementById("friendRequestButton").className = "button disabled";
+						}
+					}
+				}
+				if(reqButton.className != "button disabled"){
+					xmlhttp.open("GET","sendFriendRequest.php",true);
+					xmlhttp.send();
+				}
+			}
 			
 			function commentReveal(index)
 			{

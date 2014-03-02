@@ -21,49 +21,9 @@
 			}
 		?>
 	
-		<nav class="top-bar" data-topbar> 
-			<ul class="title-area"> 
-				<li class="name"> 
-					<h1><a href="./">bumpp</a></h1> 
-				</li> 
-				<li class="toggle-topbar menu-icon"><a href="#">Menu</a></li> 
-			</ul> 
-		
-			<section class="top-bar-section"> 
-				<!-- Right Nav Section --> 
-				<ul class="right"> 
-					<li class="has-dropdown"> 
-						<a href="#">Settings</a> 
-						<ul class="dropdown"> 
-							<li><a href="logout.php">Logout</a></li> 
-						</ul> 
-					</li>
-					<li class="divider"></li>
-					<li id="newPostNav" class="has-form"> 
-						<a href="newPost.php" class="button">New Story</a> 
-					</li>
-				</ul>
-			
-				<!-- Left Nav Section --> 
-				<ul class="left"> 
-					<li class="divider"></li>
-					<?php
-						echo '<li><a href="#">'.$_SESSION['fname'].'</a></li>';
-					?>
-					<li class="divider"></li>
-					<li class="has-form"> 
-						<div class="row collapse"> 
-							<div class="large-8 small-9 columns"> 
-								<input type="text" placeholder="Search for Friends"> 
-							</div> 
-							<div class="large-4 small-3 columns"> 
-								<a href="#" class="button">Search</a> 
-							</div> 
-						</div> 
-					</li>
-				</ul> 
-			</section> 
-		</nav>
+		<?php
+			include('topBar.php');
+		?>
 	
 		<section role="main">
 			<div class="row">

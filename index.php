@@ -14,49 +14,14 @@
     	<script src="js/vendor/modernizr.js"></script>
 	</head>
 	<body>
-		<nav class="top-bar" data-topbar> 
-			<ul class="title-area"> 
-				<li class="name"> 
-					<h1><a href="./">bumpp</a></h1> 
-				</li> 
-				<li class="toggle-topbar menu-icon"><a href="#">Menu</a></li> 
-			</ul> 
-		
-			<section class="top-bar-section"> 
-				<!-- Right Nav Section --> 
-				<ul class="right"> 
-					<li class="has-dropdown"> 
-						<a href="#">Settings</a> 
-						<ul class="dropdown"> 
-							<li><a href="logout.php">Logout</a></li> 
-						</ul> 
-					</li>
-					<li class="divider"></li>
-					<li id="newPostNav" class="has-form"> 
-						<a href="newPost.php" class="button">New Story</a> 
-					</li>
-				</ul>
-			
-				<!-- Left Nav Section --> 
-				<ul class="left"> 
-					<li class="divider"></li>
-					<?php
-						echo '<li><a href="#">'.$_SESSION['fname'].'</a></li>';
-					?>
-					<li class="divider"></li>
-					<li class="has-form"> 
-						<div class="row collapse"> 
-							<div class="large-8 small-9 columns"> 
-								<input type="text" data-dropdown="drop1" placeholder="Search for Friends" onkeyup="search(this.value)">
-							</div> 
-							<div class="large-4 small-3 columns"> 
-								<a href="#" class="button">Search</a> 
-							</div> 
-						</div> 
-					</li>
-				</ul>
-			</section> 
-		</nav>
+		<?php
+			$_SESSION['friend_user_id'] = $_SESSION['user_id'];
+			$_SESSION['friendship_accepted'] = 1;
+			$_SESSION['friendship_id'] = 0;
+			$_SESSION['friend_first_name'] = $_SESSION['fname'];
+			$_SESSION['friend_last_name'] = $_SESSION['lname'];
+			include('topBar.php');
+		?>
 		<ul id="drop1" class="f-dropdown" data-dropdown-content>
 								  
 		</ul>
@@ -116,6 +81,8 @@
 								}
 							}
 							$mysqli->close();
+							$_SESSION['friend_blog_name'] = stripslashes($blogName);
+							$_SESSION['friend_blog_id'] = $blog_id;
 							$_SESSION['blog_name'] = stripslashes($blogName);
 							$_SESSION['blog_id'] = $blog_id;
 						}
@@ -326,6 +293,7 @@
     	<script src="js/foundation.min.js"></script>
     	<script src="js/foundation/foundation.reveal.js"></script>
     	<script src="js/foundation/foundation.dropdown.js"></script>
+    	<script src="js/foundation/foundation.topbar.js"></script>
     	<script>
     	//Code modified from w3 schools
 		function search(str)
@@ -360,7 +328,24 @@
 			
     	  	$(document).ready(function() {
     	  
-    	  	$('#welcomeModal').foundation('reveal', 'open');
+    	  		$('#welcomeModal').foundation('reveal', 'open');
+    	  		setInterval(
+    	  			function(){
+    	  				//Code modified from w3 schools
+
+						if (window.XMLHttpRequest){
+							xmlhttp=new XMLHttpRequest();
+						}
+
+						xmlhttp.onreadystatechange=function()
+						{
+							if (xmlhttp.readyState==4 && xmlhttp.status==200){
+								document.getElementById("friendRequests").innerHTML=xmlhttp.responseText;
+							}
+						}
+						xmlhttp.open("GET","checkFriendRequests.php",true);
+						xmlhttp.send();
+    	  			},3000);
     	  
 			});
 			

@@ -4,6 +4,7 @@ ob_start();
 $fname = "";
 $lname = "";
 $email = "";
+$username = "";
 $password = "";
 $serverPasswordHash = "";
 $salt = "";
@@ -29,7 +30,7 @@ if ($mysqli->connect_errno) {
 }
 
 /* create a prepared statement */
-if ($stmt = $mysqli->prepare("SELECT first_name, last_name, email, password, salt, profile_image_id, user_id, verified FROM user WHERE email=?")) {
+if ($stmt = $mysqli->prepare("SELECT first_name, last_name, email, username, password, salt, profile_image_id, user_id, verified FROM user WHERE email=?")) {
 
 	if(!$stmt->bind_param("s", $mysqli->real_escape_string($email)))
 	{
@@ -42,7 +43,7 @@ if ($stmt = $mysqli->prepare("SELECT first_name, last_name, email, password, sal
     	exit();
     }
 
-    $stmt->bind_result($fname, $lname, $email, $serverPasswordHash, $salt, $profileImageID, $user_id, $verified);
+    $stmt->bind_result($fname, $lname, $email, $username, $serverPasswordHash, $salt, $profileImageID, $user_id, $verified);
 
     $result = $stmt->fetch();
         
@@ -67,9 +68,16 @@ if ($stmt = $mysqli->prepare("SELECT first_name, last_name, email, password, sal
 		$_SESSION['mysqli'] = $mysqli;
 		$_SESSION['user_id'] = $user_id;
 		$_SESSION['email'] = $email;
+		$_SESSION['username'] = $username;
 		$_SESSION['fname'] = $fname;
 		$_SESSION['lname'] = $lname;
 		$_SESSION['profile_image_id'] = $profileImageID;
+		
+		$_SESSION['friendship_accepted'] = 1;
+		$_SESSION['friend_user_id'] = $user_id;
+		$_SESSION['friendship_id'] = 0;
+		$_SESSION['friend_first_name'] = $fname;
+		$_SESSION['friend_last_name'] = $lname;
 		echo '<h1>Success!</h1><br>';
 		header('Location: ./');
 		exit();
