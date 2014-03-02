@@ -167,7 +167,7 @@
 				<ul class="example-orbit" data-orbit> 
 					<li> 
 						<?php 
-							echo '<img src="'.dirname($_SERVER['PHP_SELF']).'/images/london1.jpg" alt="slide 1" />'
+							echo '<img src="/images/london1.jpg" alt="slide 1" />'
 						?>
 						<div class="orbit-caption"> 
 							London. 
