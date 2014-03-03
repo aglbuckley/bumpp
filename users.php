@@ -319,7 +319,7 @@
 								document.getElementById("friendRequests").innerHTML=xmlhttp.responseText;
 							}
 						}
-						xmlhttp.open("GET","checkFriendRequests.php",true);
+						xmlhttp.open("GET","/checkFriendRequests.php",true);
 						xmlhttp.send();
     	  			},3000);
     	  
