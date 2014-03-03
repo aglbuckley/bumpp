@@ -346,7 +346,7 @@
 					}
 				}
 				if(reqButton.className != "button disabled"){
-					xmlhttp.open("GET","sendFriendRequest.php",true);
+					xmlhttp.open("GET","/sendFriendRequest.php",true);
 					xmlhttp.send();
 				}
 			}
