@@ -60,7 +60,6 @@
 						{
 							echo '<a id="friendRequestButton" href="#" onclick="sendFriendRequest()" class="button">Send Friend Request</a>';
 						}
-						echo 'Friendship ID: '.$_SESSION['friendship_id'].' ';	 
 						echo '</li>
 					</ul> 
 				</section> 
