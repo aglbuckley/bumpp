@@ -65,6 +65,9 @@
 	}
 	$_SESSION['friend_user_id'] = $friendUserID;
 	$_SESSION['friendship_accepted'] = $friendshipAccepted;
+	if($friendshipID == null){
+		$friendshipID = -1;
+	}
 	$_SESSION['friendship_id'] = $friendshipID;
 	$_SESSION['friend_first_name'] = $firstName;
 	$_SESSION['friend_last_name'] = $lastName;
