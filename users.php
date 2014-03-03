@@ -44,7 +44,7 @@
 	}
 	if ($stmt = $mysqli->prepare("SELECT blog.name, blog.blog_id, friendship.friendship_id, friendship.accepted FROM blog friendship WHERE (friendship.friender_id = ? AND friendship.friendee_id = ?) OR (friendship.friender_id = ? AND friendship.friendee_id = ?) AND blog.user_id=?")) {
 
-		if(!$stmt->bind_param("iiiiii", $friendUserID, $_SESSION['user_id'], $_SESSION['user_id'], $friendUserID, $friendUserID))
+		if(!$stmt->bind_param("iiiii", $friendUserID, $_SESSION['user_id'], $_SESSION['user_id'], $friendUserID, $friendUserID))
 		{
 			echo '<h1>Error on select bind</h1>';
 			exit();
