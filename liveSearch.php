@@ -42,7 +42,7 @@ try{
 			$i=0;
 			while($stmt->fetch())
 			{
-				$response = $response.'<li><a href="./users/'.$username.'">'.$fname.' '.$lname.'</a></li>';
+				$response = $response.'<li><a href="/users/'.$username.'">'.$fname.' '.$lname.'</a></li>';
 				$i++;
 			}
 			
