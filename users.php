@@ -329,7 +329,7 @@
                         });
                     }
                 }
-                xmlhttp.open("GET","liveSearch.php?input="+str,true);
+                xmlhttp.open("GET","/liveSearch.php?input="+str,true);
                 xmlhttp.send();
             }
         </script>
