@@ -300,6 +300,35 @@
     			<script src="/js/foundation.min.js"></script>
     			<script src="/js/foundation/foundation.reveal.js"></script>';
 		?>
+        <script>
+            //Code modified from w3 schools
+            function search(str)
+            {
+                if (str.length==0)
+                {
+                    document.getElementById("drop1").innerHTML="";
+                    $(document).foundation('dropdown', {
+                        activeClass: 'close'
+                    });
+                    return;
+                }
+                if (window.XMLHttpRequest){
+                    xmlhttp=new XMLHttpRequest();
+                }
+
+                xmlhttp.onreadystatechange=function()
+                {
+                    if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                        document.getElementById("drop1").innerHTML=xmlhttp.responseText;
+                        $(document).foundation('dropdown', {
+                            activeClass: 'open'
+                        });
+                    }
+                }
+                xmlhttp.open("GET","liveSearch.php?input="+str,true);
+                xmlhttp.send();
+            }
+        </script>
     	<script>
 			$(document).foundation();
 			

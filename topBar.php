@@ -44,7 +44,7 @@
 						<li class="has-dropdown">
 							<a href="#">'.$_SESSION['friend_first_name'].' '.$_SESSION['friend_last_name'].'</a>
 							<ul class="dropdown">
-								<li><a href="#" onclick="sendFriendRequest()">Send Friend Request</a></li>
+								<!--<li><a href="#" onclick="sendFriendRequest()">Send Friend Request</a></li>-->
 							</ul>
 						</li>
 						<li class="divider"></li>
