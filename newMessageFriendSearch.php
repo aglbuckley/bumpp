@@ -12,7 +12,7 @@ try{
         echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
         throw new Exception('Failed to connect');
     }
-    if($stmt = $mysqli->prepare("SELECT user.first_name, user.last_name FROM user, friendship WHERE ((friendship.friender_id = ? AND friendship.friendee_id = user.user_id) OR (friendship.friendee_id = ? AND friendship.friender_id = user.user_id)) AND (user.first_name LIKE CONCAT('%', ?, '%') OR user.last_name LIKE CONCAT('%', ?, '%'))"))
+    if($stmt = $mysqli->prepare("SELECT user.first_name, user.last_name, user.username FROM user, friendship WHERE ((friendship.friender_id = ? AND friendship.friendee_id = user.user_id) OR (friendship.friendee_id = ? AND friendship.friender_id = user.user_id)) AND (user.first_name LIKE CONCAT('%', ?, '%') OR user.last_name LIKE CONCAT('%', ?, '%'))"))
     {
         if(!$stmt->bind_param("iiss", $myid, $myid, $input, $input))
         {
@@ -24,7 +24,8 @@ try{
             {
                 $fname = "";
                 $lname = "";
-                if(!$stmt->bind_result($fname, $lname))
+                $username = "";
+                if(!$stmt->bind_result($fname, $lname, $username))
                 {
                     $reponse = 'error';
                     echo $response;
@@ -45,7 +46,7 @@ try{
             $i=0;
             while($stmt->fetch())
             {
-                $response = $response.'<li><a href="#">'.$fname.' '.$lname.'</a></li>';
+                $response = $response.'<li><a href="#" onclick="insertUsername(\''.$username.'\');">'.$fname.' '.$lname.'</a></li>';
                 $i++;
             }
 

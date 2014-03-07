@@ -64,7 +64,7 @@
             <input id="messageNameInput" type="text" placeholder="conversation name">
             <input id="messageToInput" type="search" onkeyup="searchMessageFriends(this.value)" placeholder="to" data-dropdown="friends-dropdown">
             <textarea id="messageContent" rows="60" placeholder="message content"></textarea>
-            <a href="#" id="messageSendButton" onclick="sendNewMessage()" class="button expand">Send</a>
+            <a href="#" id="messageSendButton" onclick="sendNewMessage(true)" class="button expand">Send</a>
         </div>
 
         <ul id="friends-dropdown" class="f-dropdown" data-dropdown-content>
@@ -321,39 +321,76 @@
     	<script src="js/foundation/foundation.reveal.js"></script>
     	<script src="js/foundation/foundation.dropdown.js"></script>
     	<script src="js/foundation/foundation.topbar.js"></script>
+        <script src="js/spin.min.js"></script>
         <script>
             function openNewMessageModal()
             {
                 $('#newMessageModal').foundation('reveal', 'open');
             }
 
-            function sendNewMessage()
+            function sendNewMessage(canSend)
             {
-                var messageName = document.getElementById('messageNameInput').value;
-                var messageTo = document.getElementById('messageToInput').value; //$('#messageToInput').value;
-                var messageContent = document.getElementById('messageContent').value;
+                if(canSend){
+                    var messageName = document.getElementById('messageNameInput').value;
+                    var messageTo = document.getElementById('messageToInput').value; //$('#messageToInput').value;
+                    var messageContent = document.getElementById('messageContent').value;
+                    var messageSendButton = document.getElementById('messageSendButton');
 
-                if (window.XMLHttpRequest){
-                    xmlhttp=new XMLHttpRequest();
-                }
+                    messageSendButton.innerHTML = "Sending...";
+                    messageSendButton.setAttribute("onclick", "sendNewMessage(false)");// = sendNewMessage(false);
 
-                xmlhttp.onreadystatechange=function()
-                {
-                    if (xmlhttp.readyState==4 && xmlhttp.status==200){
-                        var response = xmlhttp.responseText;
-                        if(response != "Message Sent"){
-                            document.getElementById('messageSendButton').innerHTML = "Failed to Send";
-                        } else {
-                            document.getElementById('messageSendButton').innerHTML = response;
-                            setTimeout(function() {
-                                $('#newMessageModal').foundation('reveal', 'close');
-                            }, 1000);
+                    //From spin.min.js http://fgnass.github.io/spin.js/
+                    var opts = {
+                        lines: 13, // The number of lines to draw
+                        length: 0, // The length of each line
+                        width: 6, // The line thickness
+                        radius: 20, // The radius of the inner circle
+                        corners: 1, // Corner roundness (0..1)
+                        rotate: 50, // The rotation offset
+                        direction: 1, // 1: clockwise, -1: counterclockwise
+                        color: '#000', // #rgb or #rrggbb or array of colors
+                        speed: 1, // Rounds per second
+                        trail: 60, // Afterglow percentage
+                        shadow: false, // Whether to render a shadow
+                        hwaccel: false, // Whether to use hardware acceleration
+                        className: 'spinner', // The CSS class to assign to the spinner
+                        zIndex: 2e9, // The z-index (defaults to 2000000000)
+                        top: 'auto', // Top position relative to parent in px
+                        left: 'auto' // Left position relative to parent in px
+                    };
+                    var target = messageSendButton;
+                    var spinner = new Spinner(opts).spin(target);
+
+                    if (window.XMLHttpRequest){
+                        xmlhttp=new XMLHttpRequest();
+                    }
+
+                    xmlhttp.onreadystatechange=function()
+                    {
+                        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                            var response = xmlhttp.responseText;
+                            if(response != "Message Sent"){
+                                document.getElementById('messageSendButton').innerHTML = "Failed to Send";
+                            } else {
+                                document.getElementById('messageSendButton').innerHTML = response;
+                                setTimeout(function() {
+                                    $('#newMessageModal').foundation('reveal', 'close');
+                                    setTimeout(function(){
+                                        document.getElementById('messageNameInput').value = "";
+                                        document.getElementById('messageToInput').value = ""; //$('#messageToInput').value;
+                                        document.getElementById('messageContent').value = "";
+                                        messageSendButton.innerHTML = "Send";
+                                        messageSendButton.setAttribute("onclick", "sendNewMessage(true)");// = sendNewMessage(false);
+                                    }, 400);
+
+                                }, 1000);
+                            }
                         }
                     }
+                    xmlhttp.open("POST","sendNewMessage.php",true);
+                    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                    xmlhttp.send("messageName="+messageName+"&to="+messageTo+"&content="+messageContent);
                 }
-                xmlhttp.open("POST","sendNewMessage.php",true);
-                xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-                xmlhttp.send("messageName="+messageName+"&to="+messageTo+"&content="+messageContent);
             }
         </script>
 
@@ -386,12 +423,20 @@
 			xmlhttp.send();
 		}
 
+        function insertUsername(str)
+        {
+            $(document).foundation('friends-dropdown', {
+                activeClass: 'close'
+            });
+            document.getElementById("messageToInput").value = str;
+        }
+
         function searchMessageFriends(str)
         {
             if (str.length==0)
             {
                 document.getElementById("freinds-dropdown").innerHTML="";
-                $(document).foundation('dropdown', {
+                $(document).foundation('friends-dropdown', {
                     activeClass: 'close'
                 });
                 return;
@@ -404,7 +449,7 @@
             {
                 if (xmlhttp.readyState==4 && xmlhttp.status==200){
                     document.getElementById("friends-dropdown").innerHTML=xmlhttp.responseText;
-                    $(document).foundation('dropdown', {
+                    $(document).foundation('friends-dropdown', {
                         activeClass: 'open'
                     });
                 }
