@@ -100,7 +100,7 @@
 					<a class="th" href="#">
 						<?php
 							include('retrieveProfilePic.php');
-							echo '<img src="'.$_SESSION['profile_image_location'].'" style="width: 25%;">'; 
+							echo '<a class="th" href = "#"><img src="'.$_SESSION['profile_image_location'].'" style="width: 25%;"></a>';
 						?>
 					</a>
 					<h1 id="blogHeader"><?php
