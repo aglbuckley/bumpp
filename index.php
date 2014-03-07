@@ -14,6 +14,7 @@
     	<script src="js/vendor/modernizr.js"></script>
 	</head>
 	<body>
+
 		<?php
 			$_SESSION['friend_user_id'] = $_SESSION['user_id'];
 			$_SESSION['friendship_accepted'] = 1;
@@ -25,7 +26,19 @@
 		<ul id="drop1" class="f-dropdown" data-dropdown-content>
 								  
 		</ul>
-	
+
+        <div id="sidebar">
+            <a href="#" onclick="openNewMessageModal()">+</a>
+            <hr>
+            <a class="th" href="#">
+                <img src="/bumpp/images/profilepictures/defaultprofilepic.png">
+            </a>
+            <a class="th" href="#">
+                <img src="/bumpp/images/profilepictures/defaultprofilepic.png">
+            </a>
+            <hr>
+        </div>
+
 		 <?php 
 		 	session_start();
 		 	if(!isset($_SESSION['email']) || !isset($_SESSION['user_id']) || !isset($_SESSION['fname']))
@@ -44,6 +57,20 @@
 			</div>';
 		 	
 		 ?>
+
+        <!--stick this in another file for reuse-->
+        <div id="newMessageModal" class="reveal-modal" data-reveal>
+            <h1>New Message</h1>
+            <input id="messageNameInput" type="text" placeholder="conversation name">
+            <input id="messageToInput" type="search" onkeyup="searchMessageFriends(this.value)" placeholder="to" data-dropdown="friends-dropdown">
+            <textarea id="messageContent" rows="60" placeholder="message content"></textarea>
+            <a href="#" id="messageSendButton" onclick="sendNewMessage()" class="button expand">Send</a>
+        </div>
+
+        <ul id="friends-dropdown" class="f-dropdown" data-dropdown-content>
+
+        </ul>
+
 		<section role="main">
 			<div class="row">
 				<div id="blogHeaderDiv">
@@ -294,6 +321,42 @@
     	<script src="js/foundation/foundation.reveal.js"></script>
     	<script src="js/foundation/foundation.dropdown.js"></script>
     	<script src="js/foundation/foundation.topbar.js"></script>
+        <script>
+            function openNewMessageModal()
+            {
+                $('#newMessageModal').foundation('reveal', 'open');
+            }
+
+            function sendNewMessage()
+            {
+                var messageName = document.getElementById('messageNameInput').value;
+                var messageTo = document.getElementById('messageToInput').value; //$('#messageToInput').value;
+                var messageContent = document.getElementById('messageContent').value;
+
+                if (window.XMLHttpRequest){
+                    xmlhttp=new XMLHttpRequest();
+                }
+
+                xmlhttp.onreadystatechange=function()
+                {
+                    if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                        var response = xmlhttp.responseText;
+                        if(response != "Message Sent"){
+                            document.getElementById('messageSendButton').innerHTML = "Failed to Send";
+                        } else {
+                            document.getElementById('messageSendButton').innerHTML = response;
+                            setTimeout(function() {
+                                $('#newMessageModal').foundation('reveal', 'close');
+                            }, 1000);
+                        }
+                    }
+                }
+                xmlhttp.open("POST","sendNewMessage.php",true);
+                xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xmlhttp.send("messageName="+messageName+"&to="+messageTo+"&content="+messageContent);
+            }
+        </script>
+
     	<script>
     	//Code modified from w3 schools
 		function search(str)
@@ -322,12 +385,55 @@
 			xmlhttp.open("GET","liveSearch.php?input="+str,true);
 			xmlhttp.send();
 		}
+
+        function searchMessageFriends(str)
+        {
+            if (str.length==0)
+            {
+                document.getElementById("freinds-dropdown").innerHTML="";
+                $(document).foundation('dropdown', {
+                    activeClass: 'close'
+                });
+                return;
+            }
+            if (window.XMLHttpRequest){
+                xmlhttp=new XMLHttpRequest();
+            }
+
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                    document.getElementById("friends-dropdown").innerHTML=xmlhttp.responseText;
+                    $(document).foundation('dropdown', {
+                        activeClass: 'open'
+                    });
+                }
+            }
+            xmlhttp.open("GET","newMessageFriendSearch.php?input="+str,true);
+            xmlhttp.send();
+        }
 		</script>
     	<script>
 			$(document).foundation();
 			
     	  	$(document).ready(function() {
-    	  
+
+                var sidebar = $('#sidebar');
+
+                var barTop = sidebar.offset().top;
+
+                $(window).scroll(function(){
+
+                    if (barTop < $(window).scrollTop()) {
+                        sidebar.css({
+                            position: 'fixed'
+                        });
+                    } else {
+                        sidebar.css('position','absolute');
+                    }
+
+                });
+
     	  		$('#welcomeModal').foundation('reveal', 'open');
     	  		setInterval(
     	  			function(){
@@ -345,7 +451,7 @@
 						}
 						xmlhttp.open("GET","checkFriendRequests.php",true);
 						xmlhttp.send();
-    	  			},3000);
+    	  			},15000);
     	  
 			});
 			

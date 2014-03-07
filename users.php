@@ -97,7 +97,7 @@
 			<div class="row">
 				<div id="blogHeaderDiv">
 					<hr>
-					<a class="th" href="#" style="display:inline-block;">
+					<a class="th" href="#">
 						<?php
 							include('retrieveProfilePic.php');
 							echo '<img src="'.$_SESSION['profile_image_location'].'" style="width: 25%;">'; 

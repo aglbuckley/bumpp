@@ -79,9 +79,13 @@ if ($stmt = $mysqli->prepare("SELECT first_name, last_name, email, username, pas
 		$_SESSION['friend_first_name'] = $fname;
 		$_SESSION['friend_last_name'] = $lname;
 		echo '<h1>Success!</h1><br>';
+        $stmt ->close();
+        $mysqli->close();
 		header('Location: ./');
 		exit();
 	} else {
+        $stmt->close();
+        $mysqli->close();
 		header('Location: login.html');
 	}
     $stmt->close();
