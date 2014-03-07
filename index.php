@@ -31,10 +31,10 @@
             <a href="#" onclick="openNewMessageModal()">+</a>
             <hr>
             <a class="th" href="#">
-                <img src="/bumpp/images/profilepictures/defaultprofilepic.png">
+                <img src="/images/profilepictures/defaultprofilepic.png">
             </a>
             <a class="th" href="#">
-                <img src="/bumpp/images/profilepictures/defaultprofilepic.png">
+                <img src="/images/profilepictures/defaultprofilepic.png">
             </a>
             <hr>
         </div>
