@@ -97,10 +97,10 @@
 			<div class="row">
 				<div id="blogHeaderDiv">
 					<hr>
-					<a class="th" href="#">
+					<a id = "profilePic" class="th" href="#">
 						<?php
 							include('retrieveProfilePic.php');
-							echo '<a class="th" href = "#"><img src="'.$_SESSION['profile_image_location'].'" style="width: 25%;"></a>';
+							echo '<img src="'.$_SESSION['profile_image_location'].'">';
 						?>
 					</a>
 					<h1 id="blogHeader"><?php

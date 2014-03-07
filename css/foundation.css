@@ -28,6 +28,10 @@
     width: 35px;
 }
 
+#profilePic img{
+    width: 50px;
+}
+
 /*End Custom CSS */
 
 meta.foundation-mq-small {
