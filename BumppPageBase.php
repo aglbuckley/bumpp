@@ -102,7 +102,7 @@ abstract class BumppPageBase {
 						<li class="has-dropdown">
 							<a href="#">Settings</a>
 							<ul class="dropdown">
-								<li><a id="friendRequests" href="#">Friend Requests (0)</a></li>
+								<li><a id="friendRequests" href="/friendRequests.php">Friend Requests (0)</a></li>
 								<li><a href="/logout.php">Logout</a></li>
 							</ul>
 						</li>
