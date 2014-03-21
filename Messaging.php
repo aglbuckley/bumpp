@@ -206,7 +206,7 @@ class Messaging {
                             /*echo '<h1>Couldn\'t retrieve conversations</h1>';
                             echo '<h1>Oops!</h1>';*/
                             $mysqli->close();
-                            exit();
+                            return "";
                         }
 
                         while($stmt->fetch())
@@ -242,10 +242,9 @@ class Messaging {
                             $stmt->store_result();
                             if(mysqli_stmt_num_rows($stmt)==0)
                             {
-                                echo '<h1>Couldn\'t retrieve conversations</h1>';
-                                echo '<h1>Oops!</h1>';
+
                                 $mysqli->close();
-                                exit();
+                                return "";
                             }
 
                             while($stmt->fetch())
