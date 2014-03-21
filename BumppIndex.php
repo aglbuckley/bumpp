@@ -441,6 +441,30 @@ class BumppIndex extends BumppPageBase{
         <script src="/js/spin.min.js"></script>';
 
         echo '<script>
+
+            	function sendFriendRequest()
+                {
+                    var reqButton = document.getElementById("friendRequestButton");
+
+                    if (window.XMLHttpRequest){
+                        xmlhttp=new XMLHttpRequest();
+                    }
+
+                    xmlhttp.onreadystatechange=function()
+                    {
+                        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                            document.getElementById("friendRequestButton").innerHTML=xmlhttp.responseText;
+                            if(xmlhttp.responseText != "Send Friend Request")
+                            {
+                                document.getElementById("friendRequestButton").className = "button disabled";
+                            }
+                        }
+                    }
+                    if(reqButton.className != "button disabled"){
+                        xmlhttp.open("GET","/sendFriendRequest.php",true);
+                        xmlhttp.send();
+                    }
+                }
             function openNewMessageModal()
             {
                 $(\'#newMessageModal\').foundation(\'reveal\', \'open\');
