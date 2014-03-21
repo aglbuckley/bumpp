@@ -603,7 +603,9 @@ class BumppIndex extends BumppPageBase{
 		$.getJSON("checkNewMessages.php", data, function(result) {
 			var element = document.getElementById(c_idData);
 			if (result != null) {
+                                alert("test");
 				if (element.style.border != "solid red") {
+                                        
 					element.style.border="solid red";
 				}
 			}
