@@ -576,6 +576,47 @@ class BumppIndex extends BumppPageBase{
                     xmlhttp.send();
                 }
         </script>
+        
+        <script>
+		
+		
+	setInterval(function(){
+	var usernameSessionVar = \''.$_SESSION["username"].'\';
+	var username= {username: usernameSessionVar};
+	var conversationInfo;
+	var count = 0;
+	
+	var elements = document.getElementsByClassName(\'th\');
+	$.getJSON("getConversationIDs.php", username, function(conversationInfo)   {
+	var convoInfoLength = conversationInfo.length;
+	for (var i = 0; i < convoInfoLength; i++) {
+		var c_idData = new String(conversationInfo[i].conversation_id);
+		var c_memData = new String(conversationInfo[i].conversation_member_id);
+		var data = {c_id: c_idData, sender: c_memData};
+		
+		var result = null;
+		$.getJSON("checkNewMessages.php", data, function(result) {
+			var element = document.getElementById("th1");
+			if (result != null) {
+				if (element.style.border != "solid red") {
+					document.getElementById(c_idData).style.border="solid red";
+				}
+			}
+			else {
+				document.getElementById(c_idData).style.border="none";	
+			}
+		
+	});
+	}
+	
+		});
+	
+	}, 3000);
+	
+	
+	</script>
+        
+        
         <script>
         $(document).foundation();
 
