@@ -77,7 +77,7 @@ class FriendsPage extends BumppPageBase {
             } else {
                 if($stmt->execute())
                 {
-                    if(!$stmt->bind_result($username, $userID, $fname, $lname, $imageLocation, $friendshipID))
+                    if(!$stmt->bind_result($username, $userID, $fname, $lname, $imageLocation))
                     {
                         echo '<h1>Uh oh!</h1>';
                         exit();
