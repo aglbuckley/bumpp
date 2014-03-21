@@ -185,7 +185,7 @@ abstract class BumppPageBase {
 						</li>
 						<li class="divider"></li>
 						<li id="newPostNav" class="has-form">
-							<a href="newPost.php" class="button">New Story</a>
+							<a href="/newPost.php" class="button">New Story</a>
 						</li>
 					</ul>
 
@@ -195,7 +195,7 @@ abstract class BumppPageBase {
 							<li class="has-dropdown">
 							    <a href="#">'.$_SESSION['fname'].'</a>
 							    <ul class="dropdown">
-							        <li><a href="circles.php">Circles</a></li>
+							        <li><a href="/circles.php">Circles</a></li>
 							    </ul>
 							</li>
 						<li class="divider"></li>
