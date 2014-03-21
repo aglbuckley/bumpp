@@ -605,7 +605,7 @@ class BumppIndex extends BumppPageBase{
 			if (result != null) {
                                 alert("test");
 				if (element.style.border != "solid red") {
-                                        
+                                        alert("test1");
 					element.style.border="solid red";
 				}
 			}
