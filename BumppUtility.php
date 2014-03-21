@@ -62,9 +62,9 @@ class BumppUtility {
     public static function FetchLogContents($public=false, $user_id)
     {
         if(!$public){
-            $logFile = '/users/'.$user_id.'/logFile.txt';
+            $logFile = dirname(__FILE__).'/users/'.$user_id.'/logFile.txt';
         } else {
-            $logFile = '/users/'.$user_id.'/logFilePub.txt';
+            $logFile = dirname(__FILE__).'/users/'.$user_id.'/logFilePub.txt';
         }
         /*$handle = fopen($logFile, 'r');
         $contents = "";
