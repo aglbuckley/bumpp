@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	require_once("BumppUtility.php");
-	$friendID = $_SESSION['friend_user_id'];
+	$friendID = $_GET['friendID'];
 	$count = -1;
 	$accepted = 0;
 	$acceptedTrue = 1;
