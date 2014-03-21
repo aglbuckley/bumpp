@@ -145,13 +145,13 @@ abstract class BumppPageBase {
         if($friendID > 0)
         {
             if($friendAccepted==0){
-                echo '<a id="friendRequestButton" href="#" onclick="sendFriendRequest()" class="button disabled">Request Initiated</a>';
+                echo '<a id="friendRequestButton" href="#" onclick="sendFriendRequest('.$friendID.')" class="button disabled">Request Initiated</a>';
             } else {
-                echo '<a id="friendRequestButton" href="#" onclick="sendFriendRequest()" class="button disabled">Friends</a>';
+                echo '<a id="friendRequestButton" href="#" onclick="sendFriendRequest('.$friendID.')" class="button disabled">Friends</a>';
             }
         } else if($friendID == -1)
         {
-            echo '<a id="friendRequestButton" href="#" onclick="sendFriendRequest()" class="button">Send Friend Request</a>';
+            echo '<a id="friendRequestButton" href="#" onclick="sendFriendRequest('.$friendID.')" class="button">Send Friend Request</a>';
         }
         echo '</li>
 					</ul>

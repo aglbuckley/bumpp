@@ -442,7 +442,7 @@ class BumppIndex extends BumppPageBase{
 
         echo '<script>
 
-            	function sendFriendRequest()
+            	function sendFriendRequest(num)
                 {
                     var reqButton = document.getElementById("friendRequestButton");
 
@@ -461,7 +461,7 @@ class BumppIndex extends BumppPageBase{
                         }
                     }
                     if(reqButton.className != "button disabled"){
-                        xmlhttp.open("GET","/sendFriendRequest.php",true);
+                        xmlhttp.open("GET","/sendFriendRequest.php?friendID=num",true);
                         xmlhttp.send();
                     }
                 }
