@@ -86,8 +86,8 @@ class BumppIndex extends BumppPageBase{
         $this->generateBody();
     }
 
-    public function emitPageHeader($fname, $lname, $friendID, $friendAccepted){
-        parent::emitPageHeader($fname, $lname, $friendID, $friendAccepted);
+    public function emitPageHeader($fname, $lname, $friendID, $friendAccepted, $userID){
+        parent::emitPageHeader($fname, $lname, $friendID, $friendAccepted, $userID);
     }
 
     public function generateBody(){
@@ -95,7 +95,7 @@ class BumppIndex extends BumppPageBase{
         echo '<html>';
         $this->generateHead();
         echo '<body>';
-        $this->emitPageHeader($this->fname, $this->lname, $this->friendshipID, $this->friendshipAccepted);
+        $this->emitPageHeader($this->fname, $this->lname, $this->friendshipID, $this->friendshipAccepted, $this->userID);
         parent::emitSidebar();
         if($this->userID == $_SESSION['user_id']){
             $this->welcomeModal();

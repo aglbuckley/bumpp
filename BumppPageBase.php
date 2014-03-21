@@ -86,7 +86,7 @@ abstract class BumppPageBase {
         </ul>';
     }
 
-    public function emitPageHeader($fname, $lname, $friendID, $friendAccepted){
+    public function emitPageHeader($fname, $lname, $friendID, $friendAccepted, $userID){
         echo '<div class="fixed">
 			<nav class="top-bar" data-topbar="">
 				<ul class="title-area">
@@ -145,13 +145,13 @@ abstract class BumppPageBase {
         if($friendID > 0)
         {
             if($friendAccepted==0){
-                echo '<a id="friendRequestButton" href="#" onclick="sendFriendRequest('.$friendID.')" class="button disabled">Request Initiated</a>';
+                echo '<a id="friendRequestButton" href="#" onclick="sendFriendRequest('.$userID.')" class="button disabled">Request Initiated</a>';
             } else {
-                echo '<a id="friendRequestButton" href="#" onclick="sendFriendRequest('.$friendID.')" class="button disabled">Friends</a>';
+                echo '<a id="friendRequestButton" href="#" onclick="sendFriendRequest('.$userID.')" class="button disabled">Friends</a>';
             }
         } else if($friendID == -1)
         {
-            echo '<a id="friendRequestButton" href="#" onclick="sendFriendRequest('.$friendID.')" class="button">Send Friend Request</a>';
+            echo '<a id="friendRequestButton" href="#" onclick="sendFriendRequest('.$userID.')" class="button">Send Friend Request</a>';
         }
         echo '</li>
 					</ul>
