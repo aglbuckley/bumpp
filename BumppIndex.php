@@ -461,7 +461,7 @@ class BumppIndex extends BumppPageBase{
                         }
                     }
                     if(reqButton.className != "button disabled"){
-                        xmlhttp.open("GET","/sendFriendRequest.php?friendID=num",true);
+                        xmlhttp.open("GET","/sendFriendRequest.php?friendID"+num,true);
                         xmlhttp.send();
                     }
                 }
