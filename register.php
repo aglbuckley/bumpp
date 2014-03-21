@@ -127,8 +127,9 @@
                         if($stmt = $mysqli->prepare("INSERT INTO userinformation (dob, currentloc, phoneNumb, user_id) VALUES (?, ?, ?, ?)"))
                         {
                             $dob = date('Y-m-d');
+
                             $currentloc = "London, UK";
-                            $phoneNumb = 0;
+                            $phoneNumb = "0";
                             if(!$stmt->bind_param($dob, $currentloc, $phoneNumb, $user_id)){
                                 echo '<h1>Error on bind</h1>';
                                 $stmt->close();
