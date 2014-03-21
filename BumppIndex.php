@@ -597,7 +597,7 @@ class BumppIndex extends BumppPageBase{
 		var c_memData = new String(conversationInfo[i].conversation_member_id);
 		var data = {c_id: c_idData, sender: c_memData};
 		
-                alert("3");
+                alert(c_idData);
                 
 		var result = null;
 		$.getJSON("checkNewMessages.php", data, function(result) {
