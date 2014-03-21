@@ -89,7 +89,7 @@ if(isset($email) && $email != "" && filter_var($email, FILTER_VALIDATE_EMAIL)){
     $columns['email'] = "'".$email."'";
 }
 if(isset($username) && $username != ""){
-    $columns['username'] = $username;
+    $columns['username'] = "'".$username."'";
 }
 if(isset($phone) && $phone != ""){
     $columns2['phoneNumb'] = $phone;
@@ -121,7 +121,7 @@ foreach ($columns as $key => $value) {
 }
 
 $query = $query.$suffix;
-
+echo $query;
 if(count($columns2)>0){
     $query2 = "UPDATE userinformation SET ";
     $suffix2 = "WHERE user_id = ?";
