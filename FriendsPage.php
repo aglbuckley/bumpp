@@ -8,6 +8,12 @@
 require_once("BumppUtility.php");
 require_once("BumppPageBase.php");
 class FriendsPage extends BumppPageBase {
+    private $userID;
+    public function __construct($userID)
+    {
+        $this->userID = $userID;
+        parent::__construct();
+    }
 
     /**
      * @return mixed
@@ -70,7 +76,7 @@ class FriendsPage extends BumppPageBase {
         if($stmt = $mysqli->prepare("SELECT user.username, user.user_id, user.first_name, user.last_name, photo.image FROM user, photo, friendship WHERE (friendship.friender_id = ? AND friendship.accepted = 1 AND user.user_id = friendship.friendee_id AND photo.photo_id = user.profile_image_id) OR (friendship.friendee_id = ? AND friendship.accepted = 1 AND user.user_id = friendship.friender_id AND photo.photo_id = user.profile_image_id)"))
         {
             session_start();
-            if(!$stmt->bind_param("ii", $_SESSION['user_id'], $_SESSION['user_id']))
+            if(!$stmt->bind_param("ii", $this->userID, $this->userID))
             {
                 echo '<h1>Uh oh. Something went wrong</h1>';
                 exit();
