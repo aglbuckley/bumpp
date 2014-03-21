@@ -121,6 +121,26 @@
 								exit();
 							}
 						}
+
+                        if($stmt = $mysqli->prepare("INSERT INTO userinformation (dob, currentloc, phoneNumb, user_id)"))
+                        {
+                            $dob = date('Y-m-d');
+                            $currentloc = "London, UK";
+                            $phoneNumb = 0;
+                            if(!$stmt->bind_param($dob, $currentloc, $phoneNumb, $user_id)){
+                                echo '<h1>Error on bind</h1>';
+                                $stmt->close();
+                                $mysqli->close();
+                                exit();
+                            } else {
+                                if(!$stmt->execute()){
+                                    echo '<h1>Error on execution of insert</h1>';
+                                    $stmt->close();
+                                    $mysqli->close();
+                                    exit();
+                                }
+                            }
+                        }
 					}
 
                     BumppUtility::Log("registered");
