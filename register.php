@@ -122,7 +122,9 @@
 							}
 						}
 
-                        if($stmt = $mysqli->prepare("INSERT INTO userinformation (dob, currentloc, phoneNumb, user_id)"))
+                        $stmt->close();
+
+                        if($stmt = $mysqli->prepare("INSERT INTO userinformation (dob, currentloc, phoneNumb, user_id) VALUES (?, ?, ?, ?)"))
                         {
                             $dob = date('Y-m-d');
                             $currentloc = "London, UK";
