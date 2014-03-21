@@ -85,7 +85,7 @@ class FriendRequestPage extends BumppPageBase {
                         $stmt->store_result();
                         if(mysqli_stmt_num_rows($stmt)==0)
                         {
-                            echo '<h1>Did you select the right thing?</h1>';
+                            echo '<h1>No Requests</h1>';
                             exit();
                         }
 
