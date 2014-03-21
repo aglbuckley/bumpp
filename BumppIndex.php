@@ -126,7 +126,7 @@ class BumppIndex extends BumppPageBase{
 
 				<ul class="example-orbit" data-orbit>
 					<li>
-						<img src="images/london1.jpg" alt="slide 1" />
+						<img src="/images/london1.jpg" alt="slide 1" />
 						<div class="orbit-caption">
                             London.
 						</div>
