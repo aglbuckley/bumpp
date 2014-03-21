@@ -12,6 +12,7 @@ class FriendsPage extends BumppPageBase {
     public function __construct($userID)
     {
         $this->userID = $userID;
+        echo $this->userID;
         parent::__construct();
     }
 
