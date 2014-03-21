@@ -25,7 +25,7 @@ class BumppUtility {
     public static function Log($stringToLog, $public=false)
     {
         //Open up the file
-        $logFile = '/users/'.$_SESSION['user_id'].'/logFile.txt';
+        $logFile = dirname(__FILE__).'/users/'.$_SESSION['user_id'].'/logFile.txt';
 
         if(!file_exists($logFile))
         {
@@ -39,7 +39,7 @@ class BumppUtility {
         fclose($fileHandle);
 
         if($public){
-            $logFilePublic = 'users/'.$_SESSION['user_id'].'/logFilePub.txt';
+            $logFilePublic = dirname(__FILE__).'/users/'.$_SESSION['user_id'].'/logFilePub.txt';
 
             if(!file_exists($logFilePublic))
             {
