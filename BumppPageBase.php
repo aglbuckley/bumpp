@@ -119,6 +119,7 @@ abstract class BumppPageBase {
 							    <a href="#">'.$_SESSION['fname'].'</a>
 							    <ul class="dropdown">
 							        <li><a href="/circles.php">Circles</a></li>
+							        <li><a href="/friends.php">Friends</a></li>
 							    </ul>
 							</li>
 						<li class="divider"></li>
