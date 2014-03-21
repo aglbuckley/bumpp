@@ -1,4 +1,5 @@
 <?php
+require_once("BumppUtility.php");
 //Code taken and adapted from the php manual
 //URL: http://uk3.php.net/session_destroy
 
@@ -13,7 +14,7 @@ if(isset($_SESSION['mysqli']))
 	$mysqli->close();
 	$mysqli = null;
 }
-
+BumppUtility::Log("logged out");
 // Unset all of the session variables.
 $_SESSION = array();
 

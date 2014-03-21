@@ -35,6 +35,7 @@
 		<section role="main">
 			<div class="row">
 				<?php
+                require_once("BumppUtility.php");
 				require_once 'mandrill-api-php/src/Mandrill.php';
 				error_reporting(E_ALL);
 				ini_set('display_errors',1);
@@ -121,7 +122,8 @@
 							}
 						}
 					}
-					
+
+                    BumppUtility::Log("registered");
 					header('Location: http://bumpphelper.cloudapp.net/sendEmail.php?email='.$email.'&first_name='.$fname.'&last_name='.$lname);
 					/*$req = new HttpRequest('http://bumpphelper.cloudapp.net/sendEmail.php', HttpRequest::METH_POST);
 					$req->addPostFields(array('first_name' => $fname, 'last_name' => $lname, 'email' => $email, 'verification' => $verification));

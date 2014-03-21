@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	
+	require_once("BumppUtility.php");
 	$friendID = $_SESSION['friend_user_id'];
 	$count = -1;
 	$accepted = 0;
@@ -104,6 +104,7 @@
 	if ($stmt->execute()) {
 
 		echo "Friend Request Sent";
+        BumppUtility::Log("sent friend request to ".$friendID);
 		$mysqli->close();
 		exit();
 	}

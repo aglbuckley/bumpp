@@ -35,7 +35,7 @@
 		<section role="main">
 			<div class="row">
 				<?php
-				
+				require_once("BumppUtility.php");
 				if(isset($_GET['email']) && isset($_GET['verification']) && !empty($_GET['email']) && !empty($_GET['verification']))
 				{
 					$user_id = -1;
@@ -82,11 +82,12 @@
 							{
 								echo '<h1>Congratulations</h1>';
 								echo '<h2 class="subheader">You may now login</h2>';
-								$location = 'users/'.$username;
+								$location = 'users/'.$user_id;
 								if(!mkdir($location, 0700, true))
 								{
 									die('failed to create');
 								}
+                                BumppUtility::Log("verified account");
 								exit();
 							} else {
 								echo '<h1>We could not verify your account. Sorry.</h1>';

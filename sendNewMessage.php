@@ -2,6 +2,7 @@
 
 try{
     session_start();
+    require_once("BumppUtility.php");
     $to = $_POST['to'];
     $messageName = $_POST['messageName'];
     $content = $_POST['content'];
@@ -99,6 +100,7 @@ try{
                             echo $response;
                             exit();
                         }
+                        BumppUtility::Log("sent message '".$content."' to ".$to);
                         $response = 'Message Sent';
                     }
                 }

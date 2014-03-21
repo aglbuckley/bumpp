@@ -1,5 +1,6 @@
 <?php
  //ini_set('display_errors', 'On');
+require_once("BumppUtility.php");
 ob_start();
 $fname = "";
 $lname = "";
@@ -49,14 +50,14 @@ if ($stmt = $mysqli->prepare("SELECT first_name, last_name, email, username, pas
         
     if ($result==null){
     	echo '<h1>Login Failed!</h1><br><form action="login.html">
-    		<input type="submit" value="Login to Var!">
+    		<input type="submit" value="Login to Bumpp!">
 		</form>';
 		exit();
     }
     
     if ($verified == 0)
     {
-    	echo '<h1>Please verify your account before logging in.</h1';
+    	echo '<h1>Please verify your account before logging in.</h1>';
     	exit();
     }
 
@@ -72,15 +73,18 @@ if ($stmt = $mysqli->prepare("SELECT first_name, last_name, email, username, pas
 		$_SESSION['fname'] = $fname;
 		$_SESSION['lname'] = $lname;
 		$_SESSION['profile_image_id'] = $profileImageID;
-		
-		$_SESSION['friendship_accepted'] = 1;
+
+        $_SESSION['friend_username'] = $username;
+        $_SESSION['friendship_accepted'] = 1;
 		$_SESSION['friend_user_id'] = $user_id;
 		$_SESSION['friendship_id'] = 0;
 		$_SESSION['friend_first_name'] = $fname;
 		$_SESSION['friend_last_name'] = $lname;
+        $_SESSION['friend_email'] = $email;
 		echo '<h1>Success!</h1><br>';
         $stmt->close();
         $mysqli->close();
+        BumppUtility::Log("logged in");
 		header('Location: ./');
 		exit();
 	} else {

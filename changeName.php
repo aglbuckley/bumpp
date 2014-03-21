@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-
+require_once("BumppUtility.php");
 if(!isset($_SESSION['user_id']) || empty($_SESSION['user_id']) || !isset($_POST['new_name']) || empty($_POST['new_name']))
 {
 	header('Location: ./');
@@ -54,6 +54,7 @@ if(!$stmt->bind_param("sii", $mysqli->real_escape_string($new_name), $mysqli->re
 
 if ($stmt->execute()) {
 	$_SESSION['blog_name'] = $new_name;
+    BumppUtility::Log("changed blog name to ".$new_name);
 	header('Location: ./');
 	exit();
 } else {

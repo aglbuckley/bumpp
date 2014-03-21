@@ -1,5 +1,14 @@
 /* Custom CSS */
 
+/* Setting this height ensure that the sidebar will span the entire height of the window*/
+body, html {
+    height: 100%;
+}
+
+#CirclePanel {
+    width: 80%;
+}
+
 #blogHeader {
 	display:inline;
 }
@@ -28,8 +37,13 @@
     width: 35px;
 }
 
+#profileEditButton{
+    text-align: center;
+    width: 100%;
+}
+
 #profilePic img{
-    width: 70px;
+    width: 200px;
 }
 
 /*End Custom CSS */

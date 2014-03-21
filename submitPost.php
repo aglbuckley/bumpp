@@ -1,5 +1,5 @@
 <?php
-
+require_once("BumppUtility.php");
 session_start();
 
 if(!isset($_SESSION['user_id']) || empty($_SESSION['user_id']) || !isset($_POST['post_name']) || empty($_POST['post_name']) || !isset($_POST['post_content']) || empty($_POST['post_content']))
@@ -54,6 +54,7 @@ if(!$stmt->bind_param("sss", $mysqli->real_escape_string($_SESSION['blog_id']), 
 }
 
 if ($stmt->execute()) {
+    BumppUtility::Log("created a new post '".$postName."' with content '".$postContent."'", true);
 	header('Location: ./');
 	exit();
 } else {
