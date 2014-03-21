@@ -87,7 +87,6 @@
 								{
 									die('failed to create');
 								}
-                                BumppUtility::Log("verified account");
 								exit();
 							} else {
 								echo '<h1>We could not verify your account. Sorry.</h1>';

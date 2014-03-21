@@ -97,9 +97,9 @@ class BumppIndex extends BumppPageBase{
         echo '<body>';
         $this->emitPageHeader($this->fname, $this->lname, $this->friendshipID, $this->friendshipAccepted, $this->userID);
         parent::emitSidebar();
-        if($this->userID == $_SESSION['user_id']){
+        /*if($this->userID == $_SESSION['user_id']){
             $this->welcomeModal();
-        }
+        }*/
         $this->generateMainSection();
 
         $this->generateScripts();
