@@ -250,7 +250,7 @@ class Messaging {
 
                             while($stmt->fetch())
                             {
-                                $response = $response.'<a class="th" id = "'.$conversationID.'" data-options="align:right" data-dropdown="conversation-drop" onclick="fetchConversation('.$conversations[$i].')" href="#">
+                                $response = $response.'<a class="th" data-options="align:right" data-dropdown="conversation-drop" onclick="fetchConversation('.$conversations[$i].')" href="#">
                                 <img src="'.$photoLocation.'"></a>';
                             }
                         }
@@ -288,7 +288,5 @@ class Messaging {
         $mysqli->close();
         header("Location: ./");
     }
-    
-    public static function
 
 } 
