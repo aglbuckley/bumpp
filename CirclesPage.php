@@ -544,5 +544,6 @@ class CirclesPage extends BumppPageBase {
 
         });
         </script>';
+        parent::generateMessagingScript();
     }
 }
