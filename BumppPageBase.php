@@ -138,7 +138,7 @@ abstract class BumppPageBase {
 						<li class="has-dropdown">
 							<a href="#">'.$fname.' '.$lname.'</a>
 							<ul class="dropdown">
-								li><a href="/friends.php?id='.$userID.'">Friends</a></li>
+								<li><a href="/friends.php?id='.$userID.'">Friends</a></li>
 							</ul>
 						</li>
 						<li class="divider"></li>
