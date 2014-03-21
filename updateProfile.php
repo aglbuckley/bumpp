@@ -40,7 +40,7 @@ if($_FILES["newProfilePhoto"]["error"] != UPLOAD_ERR_NO_FILE)
             else
             {
                 $filename = hash("sha1", $_FILES["newProfilePhoto"]["name"]).".".strtolower($exts);
-                $fileLocation = "images/profilepictures/".$filename;
+                $fileLocation = "/images/profilepictures/".$filename;
                 move_uploaded_file($_FILES["newProfilePhoto"]["tmp_name"], $fileLocation);
                 if($stmt = $mysqli->prepare("INSERT INTO photo (owner_id, image) VALUES (?, ?)"))
                 {

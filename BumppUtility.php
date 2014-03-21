@@ -24,7 +24,7 @@ class BumppUtility {
     public static function Log($stringToLog, $public=false)
     {
         //Open up the file
-        $logFile = 'users/'.$_SESSION['user_id'].'/logFile.txt';
+        $logFile = '/users/'.$_SESSION['user_id'].'/logFile.txt';
 
         if(!file_exists($logFile))
         {
@@ -61,9 +61,9 @@ class BumppUtility {
     public static function FetchLogContents($public=false, $user_id)
     {
         if(!$public){
-            $logFile = 'users/'.$user_id.'/logFile.txt';
+            $logFile = '/users/'.$user_id.'/logFile.txt';
         } else {
-            $logFile = 'users/'.$user_id.'/logFilePub.txt';
+            $logFile = '/users/'.$user_id.'/logFilePub.txt';
         }
         /*$handle = fopen($logFile, 'r');
         $contents = "";
