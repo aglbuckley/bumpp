@@ -581,12 +581,15 @@ class BumppIndex extends BumppPageBase{
 		
 		
 	setInterval(function(){
+        alert("1");
+        
 	var usernameSessionVar = \''.$_SESSION["username"].'\';
 	var username= {username: usernameSessionVar};
 	var conversationInfo;
 	var count = 0;
 	
-	var elements = document.getElementsByClassName(\'th\');
+        alert("2");
+        
 	$.getJSON("getConversationIDs.php", username, function(conversationInfo)   {
 	var convoInfoLength = conversationInfo.length;
 	for (var i = 0; i < convoInfoLength; i++) {
@@ -594,16 +597,18 @@ class BumppIndex extends BumppPageBase{
 		var c_memData = new String(conversationInfo[i].conversation_member_id);
 		var data = {c_id: c_idData, sender: c_memData};
 		
+                alert("3");
+                
 		var result = null;
 		$.getJSON("checkNewMessages.php", data, function(result) {
-			var element = document.getElementById("th1");
+			var element = document.getElementById(c_idData);
 			if (result != null) {
 				if (element.style.border != "solid red") {
-					document.getElementById(c_idData).style.border="solid red";
+					element.style.border="solid red";
 				}
 			}
 			else {
-				document.getElementById(c_idData).style.border="none";	
+				element.style.border="none";	
 			}
 		
 	});
