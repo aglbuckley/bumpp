@@ -36,3 +36,4 @@
 2014-03-21 16:10:42	||	91 (Andrew Buckley)  sent message 'Another other message'.
 2014-03-21 16:12:00	||	91 (Andrew Buckley)  sent message 'did it'.
 2014-03-21 16:12:18	||	91 (Andrew Buckley)  sent message 'did it'.
+2014-03-21 16:17:42	||	91 (Andrew Buckley) logged out

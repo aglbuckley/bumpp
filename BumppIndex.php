@@ -434,11 +434,11 @@ class BumppIndex extends BumppPageBase{
 
     public function generateScripts(){
         parent::generateScripts();
-        echo '<script src="js/foundation/foundation.reveal.js"></script>
-    	<script src="js/foundation/foundation.dropdown.js"></script>
-    	<script src="js/foundation/foundation.topbar.js"></script>
-    	<script src="js/foundation/foundation.tab.js"></script>
-        <script src="js/spin.min.js"></script>';
+        echo '<script src="/js/foundation/foundation.reveal.js"></script>
+    	<script src="/js/foundation/foundation.dropdown.js"></script>
+    	<script src="/js/foundation/foundation.topbar.js"></script>
+    	<script src="/js/foundation/foundation.tab.js"></script>
+        <script src="/js/spin.min.js"></script>';
 
         echo '<script>
             function openNewMessageModal()
