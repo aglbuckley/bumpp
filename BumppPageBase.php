@@ -222,8 +222,8 @@ abstract class BumppPageBase {
 
 
     public function generateScripts(){
-        echo '<script src="js/vendor/jquery.js"></script>
-    	<script src="js/foundation.min.js"></script>';
+        echo '<script src="/js/vendor/jquery.js"></script>
+    	<script src="/js/foundation.min.js"></script>';
     }
 
     public function generateMessagingScript()
