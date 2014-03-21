@@ -150,7 +150,7 @@ class BumppIndex extends BumppPageBase{
     {
         echo "<h1>Activity</h1>
                 <hr>";
-        $activityTextArray = array();
+        //$activityTextArray = array();
         if($this->userID == $_SESSION['user_id']){
             //returns array
             $activityTextArray = $this->fetchLogInfo(false, $this->userID);
