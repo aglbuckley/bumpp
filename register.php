@@ -130,7 +130,7 @@
 
                             $currentloc = "London, UK";
                             $phoneNumb = "0";
-                            if(!$stmt->bind_param($dob, $currentloc, $phoneNumb, $user_id)){
+                            if(!$stmt->bind_param("sssi", $dob, $currentloc, $phoneNumb, $user_id)){
                                 echo '<h1>Error on bind</h1>';
                                 $stmt->close();
                                 $mysqli->close();
