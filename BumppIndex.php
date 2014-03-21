@@ -581,14 +581,12 @@ class BumppIndex extends BumppPageBase{
 		
 		
 	setInterval(function(){
-        alert("1");
         
 	var usernameSessionVar = \''.$_SESSION["username"].'\';
 	var username= {username: usernameSessionVar};
 	var conversationInfo;
 	var count = 0;
 	
-        alert("2");
         
 	$.getJSON("getConversationIDs.php", username, function(conversationInfo)   {
 	var convoInfoLength = conversationInfo.length;
@@ -597,21 +595,12 @@ class BumppIndex extends BumppPageBase{
 		var c_memData = new String(conversationInfo[i].conversation_member_id);
 		var data = {c_id: c_idData, sender: c_memData};
 		
-                alert(c_idData);
                 
 		var result = null;
 		$.getJSON("checkNewMessages.php", data, function(result) {
 			var element = document.getElementById(c_idData);
 			if (result != null) {
-                                alert("test");
-				if (element.style.border != "solid red") {
-                                        alert("test1");
-					element.style.border="solid red";
-				}
-			}
-			else {
-				element.style.border="none";	
-			}
+			element.style.border="solid red";
 		
 	});
 	}
